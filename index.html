@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MTGER IQ | منصة خدمات التواصل الاجتماعي السحابية</title>
     <meta name="description" content="احصل على أفضل خدمات الرشق والمتابعين بسرعة وأمان وأسعار منافسة عبر منصة MTGER IQ">
-    <meta name="keywords" content="رشق, متابعين, انستغرام, تيك توك, فيسبوك, تيليجرام, يوتيوب, زيادة متابعين">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ==========================================
-           1. التصميم العام والألوان (CSS Variables & Global)
-           ========================================== */
         :root {
             --bg-main: #0b0c10;
             --bg-card: #1f2833;
-            --primary: #8a2be2; /* بنفسجي */
-            --secondary: #00f2fe; /* أزرق نيون */
+            --primary: #8a2be2;
+            --secondary: #00f2fe;
             --text-main: #c5c6c7;
             --text-title: #ffffff;
             --glow-purple: 0 0 15px rgba(138, 43, 226, 0.6);
@@ -38,408 +34,93 @@
             overflow-x: hidden;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* تأثيرات الحركة والـ Glow */
         .glow-text-purple { text-shadow: var(--glow-purple); color: #fff; }
         .glow-text-blue { text-shadow: var(--glow-blue); color: var(--secondary); }
         
         .btn-primary {
             background: linear-gradient(45deg, var(--primary), #4b0082);
-            color: #fff;
-            padding: 12px 30px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: var(--glow-purple);
+            color: #fff; padding: 12px 30px; border-radius: 30px; border: none;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease; box-shadow: var(--glow-purple);
         }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(138, 43, 226, 0.9);
-        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 25px rgba(138, 43, 226, 0.9); }
 
         .btn-secondary {
             background: linear-gradient(45deg, var(--secondary), #00a8ff);
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: var(--glow-blue);
+            color: #000; padding: 12px 30px; border-radius: 30px; border: none;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease; box-shadow: var(--glow-blue);
         }
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.9);
-        }
+        .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 0 25px rgba(0, 242, 254, 0.9); }
 
         .btn-google {
-            background: #fff;
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 30px;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            margin-top: 15px;
-            transition: 0.3s;
+            background: #fff; color: #000; padding: 12px 30px; border-radius: 30px;
+            border: 1px solid #ddd; cursor: pointer; font-weight: bold;
+            display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 15px; transition: 0.3s;
         }
-        .btn-google:hover {
-            background: #f1f1f1;
-            transform: translateY(-2px);
-        }
+        .btn-google:hover { background: #f1f1f1; transform: translateY(-2px); }
 
-        /* الهيدر وقائمة التنقل - مخفية في البداية حتى يتم تسجيل الدخول */
         header {
-            background-color: rgba(31, 40, 51, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--primary);
-            box-shadow: var(--glow-purple);
-            display: none; 
+            background-color: rgba(31, 40, 51, 0.95); backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary);
+            box-shadow: var(--glow-purple); display: none; 
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 15px 20px; }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
+        .nav-menu { display: flex; list-style: none; gap: 20px; }
+        .nav-menu li a { font-weight: 600; transition: 0.3s; cursor: pointer; }
+        .nav-menu li a:hover, .nav-menu li a.active { color: var(--secondary); text-shadow: var(--glow-blue); }
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
+        .page-section { display: none; padding: 100px 20px 60px 20px; min-height: 80vh; max-width: 1200px; margin: 0 auto; animation: fadeIn 0.5s ease-in-out forwards; }
+        .page-section.active-page { display: block; }
+        #login { padding-top: 15vh; }
 
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .nav-menu li a {
-            font-weight: 600;
-            transition: 0.3s;
-            cursor: pointer;
-        }
+        .hero { text-align: center; padding: 100px 20px; background: radial-gradient(circle, rgba(138,43,226,0.15) 0%, rgba(11,12,16,1) 70%); }
+        .hero h1 { font-size: 44px; margin-bottom: 20px; font-weight: 900; }
+        .hero p { font-size: 18px; margin-bottom: 40px; }
 
-        .nav-menu li a:hover, .nav-menu li a.active {
-            color: var(--secondary);
-            text-shadow: var(--glow-blue);
-        }
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 40px 0; }
+        .stat-card { background-color: var(--bg-card); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid rgba(0, 242, 254, 0.2); transition: 0.3s; }
+        .stat-card:hover { border-color: var(--secondary); box-shadow: var(--glow-blue); transform: translateY(-5px); }
+        .stat-number { font-size: 36px; font-weight: bold; color: #fff; margin-top: 10px; }
 
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .card { background-color: var(--bg-card); border-radius: 15px; padding: 25px; border: 1px solid rgba(138, 43, 226, 0.2); transition: 0.3s; }
+        .card:hover { border-color: var(--primary); box-shadow: var(--glow-purple); transform: translateY(-5px); }
+        .card i { font-size: 40px; color: var(--secondary); margin-bottom: 15px; }
+        .card h3 { color: #fff; margin-bottom: 10px; }
 
-        /* نظام الصفحات الديناميكي */
-        .page-section {
-            display: none;
-            padding: 100px 20px 60px 20px;
-            min-height: 80vh;
-            max-width: 1200px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s ease-in-out forwards;
-        }
+        .form-box { background-color: var(--bg-card); max-width: 550px; margin: 40px auto; padding: 40px; border-radius: 20px; border: 1px solid var(--primary); box-shadow: var(--glow-purple); }
+        .form-box h2 { text-align: center; margin-bottom: 30px; color: #fff; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; background-color: var(--bg-main); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 16px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--secondary); outline: none; box-shadow: var(--glow-blue); }
 
-        /* جعل صفحة تسجيل الدخول هي النشطة تلقائياً عند الفتح الأول وبدون هيدر */
-        .page-section.active-page {
-            display: block;
-        }
+        .table-responsive { width: 100%; overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; background-color: var(--bg-card); border-radius: 10px; overflow: hidden; }
+        th, td { padding: 15px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        th { background-color: rgba(138, 43, 226, 0.3); color: #fff; }
+        tr:hover { background-color: rgba(255,255,255,0.02); }
 
-        #login {
-            padding-top: 15vh;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* قسم الـ Hero */
-        .hero {
-            text-align: center;
-            padding: 150px 20px 100px 20px;
-            background: radial-gradient(circle, rgba(138,43,226,0.15) 0%, rgba(11,12,16,1) 70%);
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            color: var(--text-main);
-        }
-
-        /* قسم الإحصائيات */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .stat-card {
-            background-color: var(--bg-card);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            transition: 0.3s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--secondary);
-            box-shadow: var(--glow-blue);
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: bold;
-            color: #fff;
-            margin-top: 10px;
-        }
-
-        /* البطاقات والجداول وعناصر النماذج */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid rgba(138, 43, 226, 0.2);
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--glow-purple);
-            transform: translateY(-5px);
-        }
-
-        .card i {
-            font-size: 40px;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .form-box {
-            background-color: var(--bg-card);
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--primary);
-            box-shadow: var(--glow-purple);
-        }
-
-        .form-box h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--bg-main);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--secondary);
-            outline: none;
-            box-shadow: var(--glow-blue);
-        }
-
-        /* الجداول وبطاقات اللوحات */
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--bg-card);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: right;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        th {
-            background-color: rgba(138, 43, 226, 0.3);
-            color: #fff;
-        }
-
-        tr:hover {
-            background-color: rgba(255,255,255,0.02);
-        }
-
-        .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .status-success { background-color: rgba(0, 200, 81, 0.2); color: #00C851; }
         .status-pending { background-color: rgba(255, 187, 51, 0.2); color: #ffbb33; }
 
-        /* الفوتر - مخفي في البداية */
-        footer {
-            background-color: #07080a;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 60px;
-            display: none;
-        }
+        footer { background-color: #07080a; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; display: none; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+        .footer-section { flex: 1; min-width: 250px; }
+        .footer-section h3 { color: #fff; margin-bottom: 20px; border-left: 3px solid var(--secondary); padding-left: 10px; }
+        .social-icons a { font-size: 24px; margin-left: 15px; transition: 0.3s; }
+        .social-icons a:hover { color: var(--secondary); transform: scale(1.2); }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .footer-section h3 {
-            color: #fff;
-            margin-bottom: 20px;
-            border-left: 3px solid var(--secondary);
-            padding-left: 10px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links li a:hover {
-            color: var(--secondary);
-        }
-
-        .social-icons a {
-            font-size: 24px;
-            margin-left: 15px;
-            transition: 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: var(--secondary);
-            transform: scale(1.2);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-size: 14px;
-        }
-
-        /* كابتشا */
-        .captcha-box {
-            background: #111;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            letter-spacing: 5px;
-            color: var(--secondary);
-            border-radius: 5px;
-            margin-bottom: 10px;
-            user-select: none;
-        }
-
-        /* استعلامات الوسائط للهواتف (Responsive) */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                right: 0;
-                width: 100%;
-                background-color: var(--bg-card);
-                padding: 20px;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.5);
-                border-bottom: 2px solid var(--primary);
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 70px; right: 0; width: 100%; background-color: var(--bg-card); padding: 20px; border-bottom: 2px solid var(--primary); }
+            .nav-menu.active { display: flex; }
+            .menu-toggle { display: block; }
             .hero h1 { font-size: 32px; }
-            .hero p { font-size: 16px; }
         }
     </style>
 </head>
@@ -451,12 +132,12 @@
             <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
             <ul class="nav-menu" id="nav-links">
                 <li><a onclick="showPage('home')" class="active">الرئيسية</a></li>
-                <li><a onclick="showPage('services')">الخدمات</a></li>
-                <li><a onclick="showPage('dashboard')">لوحة المستخدم</a></li>
-                <li><a onclick="showPage('orders')">الطلبات</a></li>
-                <li><a onclick="showPage('billing')">شحن الرصيد</a></li>
-                <li><a onclick="showPage('api-docs')">منفذ API</a></li>
-                <li><a onclick="logoutUser()" style="color: #ff3333;"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                <li><a onclick="showPage('services')">الخدمات المتاحة</a></li>
+                <li><a onclick="showPage('dashboard')">طلب جديد</a></li>
+                <li><a onclick="showPage('orders')">سجل طلباتي</a></li>
+                <li><a onclick="showPage('billing')">شحن رصيد</a></li>
+                <li id="admin-nav-link" style="display: none;"><a onclick="showPage('admin-dashboard')" style="color: #ff3333; font-weight: bold;"><i class="fas fa-user-shield"></i> لوحة الإدارة</a></li>
+                <li><a onclick="logoutUser()" style="color: #ffaa00;"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
             </ul>
         </div>
     </header>
@@ -477,12 +158,10 @@
                 </div>
                 <button type="submit" class="btn-primary" style="width: 100%;">دخول</button>
             </form>
-            
             <button class="btn-google" id="google-login-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_\"G\"_Logo.svg" alt="Google" style="width:18px;">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:18px;">
                 المتابعة باستخدام Google
             </button>
-
             <p style="text-align: center; margin-top: 20px; font-size: 14px;">
                 ليس لديك حساب؟ <a onclick="showPage('register')" style="color: var(--secondary); cursor: pointer; font-weight: bold;">أنشئ حسابك الآن</a>
             </p>
@@ -491,11 +170,11 @@
 
     <div id="register" class="page-section">
         <div class="form-box">
-            <h2>إنشاء حساب جديد</h2>
+            <h2>إنشاء حساب جديد بالمنصة</h2>
             <form id="register-form">
                 <div class="form-group">
                     <label>الاسم الكامل</label>
-                    <input type="text" id="reg-name" required placeholder="اسمك الثنائي">
+                    <input type="text" id="reg-name" required placeholder="الاسم الثنائي">
                 </div>
                 <div class="form-group">
                     <label>البريد الإلكتروني</label>
@@ -505,180 +184,188 @@
                     <label>كلمة المرور</label>
                     <input type="password" id="reg-pass" required placeholder="كلمة مرور قوية">
                 </div>
-                <div class="form-group">
-                    <label>رمز الكابتشا الآمن: <span class="captcha-box">MTGER 77</span></label>
-                    <input type="text" required placeholder="أدخل الرمز الظاهر أعلاه للتأكيد">
-                </div>
-                <button type="submit" class="btn-secondary" style="width: 100%;">تسجيل الحساب</button>
+                <button type="submit" class="btn-secondary" style="width: 100%;">إنشاء حسابي</button>
             </form>
             <p style="text-align: center; margin-top: 20px; font-size: 14px;">
-                تمتلك حساباً بالفعل؟ <a onclick="showPage('login')" style="color: var(--secondary); cursor: pointer; font-weight: bold;">تسجيل الدخول</a>
+                لديك حساب بالفعل؟ <a onclick="showPage('login')" style="color: var(--secondary); cursor: pointer; font-weight: bold;">سجل دخولك</a>
             </p>
         </div>
     </div>
 
     <div id="home" class="page-section">
         <section class="hero">
-            <h1 class="glow-text-purple">أفضل منصة عربية لخدمات التواصل الاجتماعي</h1>
-            <p>احصل على أفضل خدمات الرشق والمتابعين بسرعة وأمان وأسعار منافسة</p>
-            <button class="btn-secondary" onclick="showPage('dashboard')">اطلب الآن <i class="fas fa-rocket"></i></button>
+            <h1 class="glow-text-purple">سيرفر MTGER IQ لخدمات الميديا</h1>
+            <p>منصتك الاحترافية المباشرة لرشق وزيادة المتابعين والتفاعل الحقيقي</p>
+            <button class="btn-secondary" onclick="showPage('dashboard')">ابدأ طلبك الآن <i class="fas fa-bolt"></i></button>
         </section>
 
-        <h2 style="text-align: center; margin-top: 40px;" class="glow-text-blue">إحصائيات المنصة</h2>
+        <h2 style="text-align: center; margin-top: 40px;" class="glow-text-blue">إحصائيات سيرفرنا الحية</h2>
         <div class="stats-container">
             <div class="stat-card">
                 <i class="fas fa-shopping-cart fa-2x" style="color: var(--primary);"></i>
-                <div class="stat-number" data-target="152430">0</div>
-                <p>عدد الطلبات</p>
+                <div class="stat-number" id="total-orders-stat">0</div>
+                <p>إجمالي الطلبات المنفذة</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-users fa-2x" style="color: var(--secondary);"></i>
-                <div class="stat-number" data-target="12450">0</div>
-                <p>عدد العملاء</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-layer-group fa-2x" style="color: var(--primary);"></i>
-                <div class="stat-number" data-target="350">0</div>
-                <p>عدد الخدمات</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-check-circle fa-2x" style="color: var(--secondary);"></i>
-                <div class="stat-number" data-target="151900">0</div>
-                <p>عدد الطلبات المكتملة</p>
+                <div class="stat-number" id="total-users-stat">0</div>
+                <p>العملاء النشطين</p>
             </div>
         </div>
     </div>
 
     <div id="dashboard" class="page-section">
-        <h2 class="glow-text-blue">مرحباً بك في لوحة تحكمك السحابية</h2>
+        <h2 class="glow-text-blue">بوابة إرسال الطلبات السحابية</h2>
         <div style="background: var(--bg-card); padding: 20px; border-radius: 10px; margin: 20px 0; border-right: 4px solid var(--secondary);">
-            <h3>رصيدك الحالي: <span style="color: var(--secondary);" id="user-balance-display">0.00 USD</span></h3>
+            <h3>رصيدك الحالي المتوفر: <span style="color: var(--secondary);" id="user-balance-display">0.00 USD</span></h3>
         </div>
         
         <div class="form-box" style="max-width: 100%; margin: 20px 0;">
-            <h3><i class="fas fa-plus-circle"></i> طلب جديد سريع</h3>
+            <h3><i class="fas fa-shopping-basket"></i> اختر الخدمة وأرسل طلبك فوراً</h3>
             <br>
             <form id="new-order-form">
                 <div class="form-group">
-                    <label>اختر القسم</label>
-                    <select id="service-cat" onchange="updateServiceDropdown()">
-                        <option value="insta">إنستغرام</option>
-                        <option value="tiktok">تيك توك</option>
-                        <option value="tele">تيليجرام</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label>الخدمة المطلوبة</label>
-                    <select id="service-item">
+                    <select id="service-item-select" onchange="calculateOrderCost()">
                         </select>
                 </div>
                 <div class="form-group">
-                    <label>رابط الحساب / المنشور</label>
-                    <input type="url" id="order-link" required placeholder="https://...">
+                    <label>رابط المستهدف (الحساب / المنشور)</label>
+                    <input type="url" id="order-link" required placeholder="https://instagram.com/...">
                 </div>
                 <div class="form-group">
-                    <label>الكمية</label>
-                    <input type="number" id="order-qty" min="100" required placeholder="الحد الأدنى 100">
+                    <label>الكمية المطلوبة</label>
+                    <input type="number" id="order-qty" min="100" required placeholder="الحد الأدنى 100" oninput="calculateOrderCost()">
                 </div>
-                <button type="submit" class="btn-primary">تأكيد الطلب ودفع الرصيد</button>
+                <div style="margin-bottom: 20px; font-weight: bold; color: #fff;">
+                    التكلفة الإجمالية المحسوبة: <span id="order-cost-display" style="color: var(--secondary);">0.00</span> USD
+                </div>
+                <button type="submit" class="btn-primary">تأكيد خصم الرصيد وتنفيذ الطلب</button>
             </form>
         </div>
     </div>
 
     <div id="services" class="page-section">
-        <h2 class="glow-text-purple" style="text-align: center;">قائمة الخدمات المتاحة</h2>
-        <div class="form-group" style="max-width: 400px; margin: 20px auto;">
-            <input type="text" id="searchService" onkeyup="filterServices()" placeholder="🔍 ابحث عن خدمة معينة بالاسم...">
-        </div>
-        <div class="grid-container" id="services-grid">
-            <div class="card service-item-card" data-name="انستغرام متابعين">
-                <i class="fab fa-instagram"></i>
-                <h3>متابعين انستغرام ثبات عالي</h3>
-                <p>السعر لكل 1000: 1.50$</p>
+        <h2 class="glow-text-purple" style="text-align: center; margin-bottom: 30px;">قائمة الخدمات المتوفرة بالسيرفر</h2>
+        <div class="grid-container" id="public-services-grid">
             </div>
-            <div class="card service-item-card" data-name="تيك توك مشاهدات">
-                <i class="fab fa-tiktok"></i>
-                <h3>مشاهدات تيك توك ترند</h3>
-                <p>السعر لكل 1000: 0.10$</p>
-            </div>
-            <div class="card service-item-card" data-name="تيليجرام اعضاء">
-                <i class="fab fa-telegram"></i>
-                <h3>أعضاء قنوات ومجموعات تيليجرام</h3>
-                <p>السعر لكل 1000: 1.20$</p>
-            </div>
-        </div>
     </div>
 
     <div id="orders" class="page-section">
-        <h2 class="glow-text-blue">سجل طلباتك السابقة المستضافة سحابياً</h2>
+        <h2 class="glow-text-blue">مراقبة حالة طلباتك الحالية ومراحل تنفيذها</h2>
         <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
+                        <th>رقم الطلب</th>
                         <th>الخدمة</th>
                         <th>الرابط</th>
                         <th>الكمية</th>
+                        <th>التكلفة</th>
                         <th>الحالة</th>
                     </tr>
                 </thead>
-                <tbody id="orders-table-body">
-                    </tbody>
+                <tbody id="orders-table-body"></tbody>
             </table>
         </div>
     </div>
 
     <div id="billing" class="page-section">
         <div class="form-box">
-            <h2><i class="fas fa-wallet" style="color: var(--secondary);"></i> شحن رصيد حسابك</h2>
+            <h2><i class="fas fa-wallet" style="color: var(--secondary);"></i> إرسال تقرير شحن رصيد محلي</h2>
             <br>
             <form id="payment-form">
                 <div class="form-group">
-                    <label>طريقة الدفع</label>
+                    <label>وسيلة الدفع والتحويل</label>
                     <select id="pay-method">
                         <option>زين كاش (ZainCash)</option>
                         <option>آسيا حوالة</option>
-                        <option>كورك / الماستر كارد</option>
+                        <option>ماستر كارد / فيزا</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>المبلغ المطلوب شحنه (USD)</label>
-                    <input type="number" id="pay-amount" min="5" placeholder="الحد الأدنى 5 دولار" required>
+                    <label>المبلغ المراد شحنه بالدولار (USD)</label>
+                    <input type="number" id="pay-amount" min="1" placeholder="مثال: 10" required>
                 </div>
                 <div class="form-group">
-                    <label>رقم التحويل أو كود العملية ورقمك</label>
-                    <input type="text" id="pay-code" required placeholder="أدخل تفاصيل التحويل">
+                    <label>رقم المحفظة المحول منها + كود عملية المعاملة</label>
+                    <input type="text" id="pay-code" required placeholder="أدخل تفاصيل رقمك وكود التأكيد">
                 </div>
-                <button type="submit" class="btn-secondary" style="width: 100%;">إرسال طلب الشحن السحابي</button>
+                <button type="submit" class="btn-secondary" style="width: 100%;">إرسال لإدارة المراجعة</button>
             </form>
         </div>
     </div>
 
-    <div id="api-docs" class="page-section">
-        <div style="background: var(--bg-card); padding: 40px; border-radius:15px;">
-            <h2 class="glow-text-blue">وثائق المطورين ومنافذ الربط (API)</h2><br>
-            <pre style="background:#000; padding:15px; color:#00f2fe; border-radius:5px; direction:ltr; text-align:left; overflow-x:auto;">
-POST https://mtger.iq/api/v1/order
-Params: [key, action, service, link, quantity]
-            </pre>
-        </div>
-    </div>
-
     <div id="admin-dashboard" class="page-section">
-        <div style="border: 2px dashed #ff3333; padding: 20px; border-radius: 15px; background: rgba(255,0,0,0.05);">
-            <h2 style="color: #ff3333; text-align:center;"><i class="fas fa-user-shield"></i> لوحة الإدارة والتحكم الكامل بالسيرفر الفايربيس</h2>
-            <div class="stats-container" style="margin-top:20px;">
+        <div style="border: 2px dashed #ff3333; padding: 25px; border-radius: 15px; background: rgba(255,0,0,0.02);">
+            <h2 style="color: #ff3333; text-align:center; margin-bottom: 20px;"><i class="fas fa-user-shield"></i> لوحة الإدارة الشاملة والتحكم بالسيرفر</h2>
+            
+            <div class="stats-container">
                 <div class="stat-card" style="border-color:#ff3333;">
-                    <div style="font-size:14px; color:#aaa;">إجمالي أرباح السيرفر</div>
-                    <div class="stat-number" style="color:#00C851;">$12,500.00</div>
+                    <div style="font-size:14px;">إجمالي الأرباح الحقيقية المشحونة</div>
+                    <div class="stat-number" style="color:#00C851;" id="admin-total-profits">$0.00</div>
+                </div>
+                <div class="stat-card" style="border-color:#ff3333;">
+                    <div style="font-size:14px;">عدد المستخدمين المسجلين بالـ DB</div>
+                    <div class="stat-number" id="admin-total-users">0</div>
                 </div>
             </div>
-            <div class="card">
-                <h3><i class="fas fa-bullhorn"></i> بث إشعار فوري لجميع الهواتف والمشتركين</h3>
-                <form id="admin-announce-form">
-                    <div class="form-group"><input type="text" id="admin-msg" placeholder="اكتب نص الإشعار هنا..." required></div>
-                    <button type="submit" class="btn-secondary" style="background:#ffbb33; color:#000; width:100%;">بث الآن</button>
+
+            <div class="card" style="margin-bottom: 30px; border-color: #ffaa00;">
+                <h3 style="color: #ffaa00; margin-bottom: 15px;"><i class="fas fa-plus-square"></i> إضافة وتدشين خدمة جديدة بالسيرفر</h3>
+                <form id="admin-add-service-form">
+                    <div class="form-group">
+                        <label>اسم الخدمة</label>
+                        <input type="text" id="admin-service-name" placeholder="مثال: متابعين انستقرام حقيقيين ثبات عالي" required>
+                    </div>
+                    <div class="form-group">
+                        <label>وصف الخدمة ومميزاتها</label>
+                        <textarea id="admin-service-desc" rows="3" placeholder="اكتب شروط البدء، السرعة، والضمان هنا..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>السعر لكل 1000 قطعة (بالدولار USD)</label>
+                        <input type="number" id="admin-service-price" step="0.01" placeholder="مثال: 1.50" required>
+                    </div>
+                    <button type="submit" class="btn-secondary" style="background:#ffaa00; color:#000;">حفظ ونشر الخدمة فوراً</button>
                 </form>
             </div>
+
+            <div class="card" style="margin-bottom: 30px;">
+                <h3><i class="fas fa-tasks"></i> طلبات الرشق الواردة وتحديث حالاتها</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>المستخدم</th>
+                                <th>الخدمة</th>
+                                <th>الرابط</th>
+                                <th>الكمية</th>
+                                <th>الحالة الحالية</th>
+                                <th>إجراءات التحكم</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-donate"></i> طلبات شحن الرصيد المعلقة (الموافقة / الرفض)</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>المستخدم</th>
+                                <th>المبلغ (USD)</th>
+                                <th>بيانات التحويل والكود</th>
+                                <th>الإجراء والاعتماد</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-payments-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -686,25 +373,22 @@ Params: [key, action, service, link, quantity]
         <div class="footer-content">
             <div class="footer-section">
                 <h3>منصة MTGER IQ</h3>
-                <p>&copy; 2026 MTGER IQ. جميع الحقوق محفوظة ومربوطة سحابياً بنجاح.</p>
+                <p>&copy; 2026 MTGER IQ. لوحة بيع وربط وإدارة خدمات التواصل الاجتماعي السحابية من الصفر.</p>
             </div>
             <div class="footer-section">
-                <h3>وسائل التواصل</h3>
+                <h3>تواصل مطور السيرفر</h3>
                 <div class="social-icons">
                     <a href="https://t.me/th2f6" target="_blank" style="color:#00f2fe;"><i class="fab fa-telegram"></i> @th2f6</a>
-                    <a href="https://instagram.com/th2f6" target="_blank" style="color:#8a2be2;"><i class="fab fa-instagram"></i> @th2f6</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script type="module">
-        // استدعاء مكتبات الفايربيس الحديثة والجاهزة للعمل فوراً
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, set, push, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // إعدادات Firebase الخاصة بمشروعك
         const firebaseConfig = {
             apiKey: "AIzaSyCBbRaAuYo6KhH7K6-byjp4SCou0DS4IXc",
             authDomain: "surtur-5d667.firebaseapp.com",
@@ -716,73 +400,55 @@ Params: [key, action, service, link, quantity]
             measurementId: "G-01MXQ5NYL6"
         };
 
-        // تهيئة الفايربيس
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
         const googleProvider = new GoogleAuthProvider();
 
         let currentUserUid = null;
+        let globalServices = {}; 
+        const ADMIN_EMAIL = "admin@mtger.iq";
 
-        // ------------------------------------------
-        // إدارة حركة الصفحات والتنقل
-        // ------------------------------------------
+        // إدارة الصفحات والتبويبات المباشرة
         window.showPage = function(pageId) {
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => section.classList.remove('active-page'));
-            
             const targetPage = document.getElementById(pageId);
             if(targetPage) targetPage.classList.add('active-page');
-
             window.scrollTo(0, 0);
             document.getElementById('nav-links').classList.remove('active');
-            if(pageId === 'home') startCounters();
         };
 
-        // إظهار الواجهات الرأسية والفوتر بعد تسجيل الدخول الناجح
         function unlockFullSite(isAdmin = false) {
             document.getElementById('main-header').style.display = 'block';
             document.getElementById('main-footer').style.display = 'block';
             if(isAdmin) {
+                document.getElementById('admin-nav-link').style.display = 'block';
                 showPage('admin-dashboard');
             } else {
+                document.getElementById('admin-nav-link').style.display = 'none';
                 showPage('home');
             }
         }
 
         window.logoutUser = function() {
-            signOut(auth).then(() => {
-                showToast("تم تسجيل الخروج بنجاح.");
-                location.reload();
-            });
+            signOut(auth).then(() => { location.reload(); });
         };
 
-        // ------------------------------------------
-        // مصادقة المستخدمين وتسجيل الدخول عبر الفايربيس
-        // ------------------------------------------
-
-        // 1. تسجيل الدخول العادي بالبريد والبورد والتأكد إذا كان أدمن
+        // ---------------- مصادقة حسابات المستخدمين ----------------
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const pass = document.getElementById('login-pass').value;
 
-            // التحقق من هوية الأدمن الثابتة والسرية أولاً
-            if(email === "admin@mtger.iq" && pass === "Admin123") {
-                showToast("🔐 مرحباً بك أيها المطور! تسجيل دخول الأدمن ناجح.");
-                unlockFullSite(true);
-                return;
-            }
-
             signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    showToast("تم تسجيل الدخول بنجاح! أهلاً بك.");
-                    unlockFullSite(false);
+                .then((cred) => {
+                    showToast("أهلاً بك مجدداً وسهلاً!");
+                    unlockFullSite(cred.user.email === ADMIN_EMAIL);
                 })
-                .catch((error) => { showToast("خطأ: " + error.message); });
+                .catch((err) => { showToast("فشل الدخول: " + err.message); });
         });
 
-        // 2. تسجيل الحساب الجديد وحفظ البيانات بـ Database
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('reg-name').value;
@@ -790,181 +456,322 @@ Params: [key, action, service, link, quantity]
             const pass = document.getElementById('reg-pass').value;
 
             createUserWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    const uid = userCredential.user.uid;
-                    set(ref(db, 'users/' + uid), {
+                .then((cred) => {
+                    // تصفير حقيقي وحفظ العميل الجديد برصيد 0.00 من الصفر المالي التام
+                    set(ref(db, 'users/' + cred.user.uid), {
                         fullname: name,
                         email: email,
-                        balance: 5.00 // رصيد ترحيبي مجاني افتراضي للمشترك الجديد
+                        balance: 0.00
                     });
-                    showToast("تم إنشاء حسابك السحابي بنجاح!");
+                    showToast("تم إنشاء حسابك الجديد بنجاح برصيد 0.00$");
                     unlockFullSite(false);
                 })
-                .catch((error) => { showToast("خطأ بالإنشاء: " + error.message); });
+                .catch((err) => { showToast("خطأ: " + err.message); });
         });
 
-        // 3. المتابعة والتسجيل المباشر السريع عبر Google Auth Popup
         document.getElementById('google-login-btn').addEventListener('click', () => {
-            signInWithPopup(auth, googleProvider)
-                .then((result) => {
-                    const user = result.user;
-                    set(ref(db, 'users/' + user.uid), {
-                        fullname: user.displayName,
-                        email: user.email,
-                        balance: 10.00
-                    });
-                    showToast("تم تسجيل الدخول عبر Google بنجاح!");
-                    unlockFullSite(false);
-                })
-                .catch((error) => { showToast("فشل الاتصال بجوجل: " + error.message); });
+            signInWithRedirect(auth, googleProvider);
         });
 
-        // مراقبة حالة المستخدم ومزامنة الجلسة النشطة
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUserUid = user.uid;
-                // جلب بيانات الرصيد بشكل حي من قاعدة البيانات
-                onValue(ref(db, 'users/' + user.uid), (snapshot) => {
-                    const data = snapshot.val();
-                    if(data) {
-                        document.getElementById('user-balance-display').innerText = (data.balance || 0).toFixed(2) + " USD";
-                    }
+        getRedirectResult(auth).then((result) => {
+            if (result && result.user) {
+                // تصفير حسابات جوجل الجديدة المنشأة لأول مرة لتبدأ من الصفر
+                set(ref(db, 'users/' + result.user.uid), {
+                    fullname: result.user.displayName,
+                    email: result.user.email,
+                    balance: 0.00
                 });
-                // جلب وعرض طلبات المستخدم
-                loadUserOrders(user.uid);
+                unlockFullSite(result.user.email === ADMIN_EMAIL);
             }
         });
 
-        // ------------------------------------------
-        // معالجة وإرسال الطلبات والمدفوعات لقواعد البيانات
-        // ------------------------------------------
-        
-        // إرسال طلب رشق جديد
-        document.getElementById('new-order-form').addEventListener('submit', (e) => {
+        // مراقبة الدخول العام والربط المتزامن بقواعد البيانات
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserUid = user.uid;
+                const isAdmin = (user.email === ADMIN_EMAIL);
+
+                // استماع رصيد المستخدم الحالي
+                onValue(ref(db, 'users/' + user.uid), (snapshot) => {
+                    const data = snapshot.val();
+                    if(data) document.getElementById('user-balance-display').innerText = (data.balance || 0).toFixed(2) + " USD";
+                });
+
+                loadServices();
+                loadUserOrders();
+                unlockFullSite(isAdmin);
+
+                if(isAdmin) {
+                    loadAdminPanels();
+                }
+            }
+        });
+
+        // ---------------- إدارة خدمات الأدمن (إضافة وعرض) ----------------
+        document.getElementById('admin-add-service-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            if(!currentUserUid) return;
+            const name = document.getElementById('admin-service-name').value;
+            const desc = document.getElementById('admin-service-desc').value;
+            const price = parseFloat(document.getElementById('admin-service-price').value);
 
-            const service = document.getElementById('service-item').value;
-            const link = document.getElementById('order-link').value;
-            const qty = document.getElementById('order-qty').value;
-
-            const orderRef = ref(db, 'orders/' + currentUserUid);
-            const newOrderPush = push(orderRef);
-            set(newOrderPush, {
-                service: service,
-                link: link,
-                quantity: qty,
-                status: "قيد التنفيذ"
-            }).then(() => {
-                showToast("🚀 تم إرسال طلب الرشق بنجاح إلى السيرفر السحابي!");
-                showPage('orders');
+            const serviceRef = push(ref(db, 'services'));
+            set(serviceRef, { name, desc, price })
+            .then(() => {
+                showToast("✅ تم نشر وتعميم الخدمة الجديدة بالسيرفر بنجاح!");
+                document.getElementById('admin-add-service-form').reset();
             });
         });
 
-        // إرسال كود شحن الرصيد
-        document.getElementById('payment-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const method = document.getElementById('pay-method').value;
-            const amount = document.getElementById('pay-amount').value;
-            const code = document.getElementById('pay-code').value;
+        function loadServices() {
+            onValue(ref(db, 'services'), (snapshot) => {
+                const select = document.getElementById('service-item-select');
+                const publicGrid = document.getElementById('public-services-grid');
+                select.innerHTML = "";
+                publicGrid.innerHTML = "";
+                globalServices = {};
 
-            const paymentRef = push(ref(db, 'payments/' + currentUserUid));
-            set(paymentRef, { method, amount, code, status: "قيد المراجعة" });
-            showToast("تم إرسال طلب الشحن، سيتم التأكيد خلال دقائق.");
-            showPage('dashboard');
+                if(!snapshot.exists()) {
+                    publicGrid.innerHTML = "<p style='text-align:center; width:100%;'>لا توجد خدمات مضافة حالياً بالسيرفر، بانتظار الأدمن لتدشينها.</p>";
+                    return;
+                }
+
+                snapshot.forEach((child) => {
+                    const id = child.key;
+                    const service = child.val();
+                    globalServices[id] = service;
+
+                    // تعبئة حقل الاختيار للزبون بالطلب
+                    let opt = document.createElement('option');
+                    opt.value = id;
+                    opt.text = `${service.name} [السعر لكل 1000: ${service.price}$]`;
+                    select.add(opt);
+
+                    // بناء كرت العرض الاحترافي للخدمة
+                    publicGrid.innerHTML += `
+                        <div class="card">
+                            <i class="fas fa-star"></i>
+                            <h3>${service.name}</h3>
+                            <p style="font-size:14px; color:#aaa; margin:10px 0;">${service.desc}</p>
+                            <div style="font-weight:bold; color:var(--secondary); margin-top:10px;">${service.price}$ لكل 1000 طلب</div>
+                        </div>
+                    `;
+                });
+                calculateOrderCost();
+            });
+        }
+
+        // حساب سعر التكلفة فورياً وتلقائياً أثناء كتابة الكمية
+        window.calculateOrderCost = function() {
+            const serviceId = document.getElementById('service-item-select').value;
+            const qty = parseInt(document.getElementById('order-qty').value) || 0;
+            if(serviceId && globalServices[serviceId]) {
+                const cost = (globalServices[serviceId].price / 1000) * qty;
+                document.getElementById('order-cost-display').innerText = cost.toFixed(3);
+            }
+        };
+
+        // ---------------- معالجة الطلبات والخصم من الرصيد ----------------
+        document.getElementById('new-order-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const serviceId = document.getElementById('service-item-select').value;
+            const link = document.getElementById('order-link').value;
+            const qty = parseInt(document.getElementById('order-qty').value);
+            const cost = parseFloat(document.getElementById('order-cost-display').innerText);
+
+            if(!serviceId) { showToast("الرجاء انتظار إضافة خدمات أولاً."); return; }
+
+            // التحقق من الرصيد والخصم المباشر الحقيقي
+            onValue(ref(db, 'users/' + currentUserUid), (snap) => {
+                const user = snap.val();
+                if(user) {
+                    const currentBalance = user.balance || 0;
+                    if(currentBalance < cost) {
+                        showToast("❌ رصيدك غير كافٍ لتنفيذ هذا الطلب! يرجى شحن حسابك أولاً.");
+                    } else {
+                        // تنفيذ الخصم المالي الحقيقي بالسيرفر
+                        const newBalance = currentBalance - cost;
+                        update(ref(db, 'users/' + currentUserUid), { balance: newBalance });
+
+                        // تسجيل تفاصيل طلب الرشق بقاعدة البيانات للعميل وللأدمن
+                        const orderPush = push(ref(db, 'all_orders'));
+                        set(orderPush, {
+                            uid: currentUserUid,
+                            userEmail: user.email,
+                            serviceName: globalServices[serviceId].name,
+                            link: link,
+                            quantity: qty,
+                            cost: cost,
+                            status: "قيد الانتظار"
+                        }).then(() => {
+                            showToast("🚀 تم خصم الرصيد بنجاح وتحويل الطلب للسيرفر الجاري تنفيذه!");
+                            document.getElementById('new-order-form').reset();
+                            showPage('orders');
+                        });
+                    }
+                }
+            }, { onlyOnce: true });
         });
 
-        // جلب وعرض سجل الطلبات من الفايربيس
-        function loadUserOrders(uid) {
-            onValue(ref(db, 'orders/' + uid), (snapshot) => {
+        // عرض سجل الطلبات للزبون الحالي
+        function loadUserOrders() {
+            onValue(ref(db, 'all_orders'), (snapshot) => {
                 const tbody = document.getElementById('orders-table-body');
                 tbody.innerHTML = "";
-                snapshot.forEach((childSnapshot) => {
-                    const order = childSnapshot.val();
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${order.service}</td>
-                            <td>${order.link}</td>
-                            <td>${order.quantity}</td>
-                            <td><span class="status-badge status-pending">${order.status}</span></td>
-                        </tr>
-                    `;
+                let myOrderCount = 0;
+
+                snapshot.forEach((child) => {
+                    const order = child.val();
+                    if(order.uid === currentUserUid) {
+                        myOrderCount++;
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${child.key.substring(1, 7)}</td>
+                                <td>${order.serviceName}</td>
+                                <td><a href="${order.link}" target="_blank" style="color:var(--secondary); text-decoration:underline;">افتح الرابط</a></td>
+                                <td>${order.quantity}</td>
+                                <td>$${order.cost.toFixed(2)}</td>
+                                <td><span class="status-badge ${order.status==='مكتمل'?'status-success':'status-pending'}">${order.status}</span></td>
+                            </tr>
+                        `;
+                    }
                 });
             });
         }
 
-        // بث الإشعارات من لوحة الأدمن
-        document.getElementById('admin-announce-form').addEventListener('submit', (e) => {
+        // إرسال تقرير شحن رصيد العميل للأدمن
+        document.getElementById('payment-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const msg = document.getElementById('admin-msg').value;
-            showToast("🔔 إشعار عام من السيرفر: " + msg);
-            document.getElementById('admin-msg').value = '';
+            const method = document.getElementById('pay-method').value;
+            const amount = parseFloat(document.getElementById('pay-amount').value);
+            const code = document.getElementById('pay-code').value;
+
+            onValue(ref(db, 'users/' + currentUserUid), (snap) => {
+                const user = snap.val();
+                const payRef = push(ref(db, 'all_payments'));
+                set(payRef, {
+                    uid: currentUserUid,
+                    userEmail: user.email,
+                    method: method,
+                    amount: amount,
+                    code: code,
+                    status: "معلق"
+                }).then(() => {
+                    showToast("📥 تم إرسال معلومات الشحن للأدمن للمراجعة والتدقيق المالي.");
+                    document.getElementById('payment-form').reset();
+                });
+            }, { onlyOnce: true });
         });
 
-        // تفعيل قائمة الموبايل المتجاوبة
+        // ---------------- لوحات تحكم وإدارة ومراقبة الأدمن الشاملة ----------------
+        function loadAdminPanels() {
+            // أ. حساب ومراقبة عداد الإحصائيات الحية
+            onValue(ref(db, 'users'), (snap) => {
+                const count = snap.exists() ? Object.keys(snap.val()).length : 0;
+                document.getElementById('admin-total-users').innerText = count;
+                document.getElementById('total-users-stat').innerText = count;
+            });
+
+            onValue(ref(db, 'all_orders'), (snap) => {
+                const count = snap.exists() ? Object.keys(snap.val()).length : 0;
+                document.getElementById('total-orders-stat').innerText = count;
+            });
+
+            // ب. حساب الأرباح الحقيقية الإجمالية بناءً على عمليات الشحن التي وافق عليها الأدمن
+            onValue(ref(db, 'all_payments'), (snap) => {
+                let totalProfits = 0;
+                snap.forEach((child) => {
+                    const pay = child.val();
+                    if(pay.status === "مقبول") totalProfits += pay.amount;
+                });
+                document.getElementById('admin-total-profits').innerText = `$${totalProfits.toFixed(2)}`;
+            });
+
+            // ج. إدارة ومراقبة حالات طلبات رشق المستخدمين وتحديثها
+            onValue(ref(db, 'all_orders'), (snapshot) => {
+                const tbody = document.getElementById('admin-orders-table');
+                tbody.innerHTML = "";
+                snapshot.forEach((child) => {
+                    const id = child.key;
+                    const order = child.val();
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${order.userEmail}</td>
+                            <td>${order.serviceName}</td>
+                            <td><small>${order.link}</small></td>
+                            <td>${order.quantity}</td>
+                            <td><b style="color:#ffbb33">${order.status}</b></td>
+                            <td>
+                                <button onclick="updateOrderStatus('${id}', 'مكتمل')" class="btn-primary" style="padding:4px 10px; font-size:12px; background:#00C851;">مكتمل</button>
+                                <button onclick="updateOrderStatus('${id}', 'جاري التنفيذ')" class="btn-secondary" style="padding:4px 10px; font-size:12px;">تنفيذ</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+
+            // د. مراجعة كود وعملية شحن رصيد كل عميل وتحديث محفظته السحابية فور الموافقة
+            onValue(ref(db, 'all_payments'), (snapshot) => {
+                const tbody = document.getElementById('admin-payments-table');
+                tbody.innerHTML = "";
+                snapshot.forEach((child) => {
+                    const id = child.key;
+                    const pay = child.val();
+                    if(pay.status === "معلق") {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${pay.userEmail}</td>
+                                <td>$${pay.amount}</td>
+                                <td><small>[${pay.method}] كود: ${pay.code}</small></td>
+                                <td>
+                                    <button onclick="approvePayment('${id}', '${pay.uid}', ${pay.amount})" class="btn-primary" style="padding:4px 10px; font-size:12px; background:#00C851;">✅ موافقة وشحن</button>
+                                    <button onclick="rejectPayment('${id}')" class="btn-primary" style="padding:4px 10px; font-size:12px; background:#ff3333;">❌ رفض</button>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                });
+            });
+        }
+
+        // دوال تحكم الأدمن المتاحة بـ Global Scope
+        window.updateOrderStatus = function(orderId, newStatus) {
+            update(ref(db, 'all_orders/' + orderId), { status: newStatus })
+            .then(() => { showToast("تم تحديث حالة الطلب الحالية بنجاح."); });
+        };
+
+        window.approvePayment = function(payId, userUid, amount) {
+            // جلب الرصيد القديم الحقيقي للمستخدم لزيادة رصيده الجديد
+            onValue(ref(db, 'users/' + userUid), (snap) => {
+                const user = snap.val();
+                if(user) {
+                    const currentBal = user.balance || 0;
+                    const finalBal = currentBal + amount;
+                    
+                    // شحن المحفظة وتحديث حالة التقرير إلى مقبول
+                    update(ref(db, 'users/' + userUid), { balance: finalBal });
+                    update(ref(db, 'all_payments/' + payId), { status: "مقبول" });
+                    showToast("🚀 تم شحن الرصيد للعميل بنجاح وزيادة أرباح السيرفر!");
+                }
+            }, { onlyOnce: true });
+        };
+
+        window.rejectPayment = function(payId) {
+            update(ref(db, 'all_payments/' + payId), { status: "مرفوض" })
+            .then(() => { showToast("تم رفض تقرير عملية التحويل."); });
+        };
+
         document.getElementById('mobile-menu').addEventListener('click', () => {
             document.getElementById('nav-links').classList.toggle('active');
         });
     </script>
 
     <script>
-        // دالة عرض الإشعارات السريعة
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
             toast.innerText = message;
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 4000);
         }
-
-        // تصفية وقائمة البحث السريع للخدمات
-        function filterServices() {
-            const input = document.getElementById('searchService').value.toLowerCase();
-            const cards = document.getElementsByClassName('service-item-card');
-            for(let i = 0; i < cards.length; i++) {
-                let name = cards[i].getAttribute('data-name').toLowerCase();
-                cards[i].style.display = name.includes(input) ? "block" : "none";
-            }
-        }
-
-        const serviceData = {
-            insta: ["متابعين انستغرام ثبات عالي [$1.50]", "لايكات انستغرام [$0.50]"],
-            tiktok: ["مشاهدات تيك توك ترند [$0.10]", "متابعين تيك توك [$3.00]"],
-            tele: ["أعضاء قنوات تيليجرام [$1.20]"]
-        };
-
-        function updateServiceDropdown() {
-            const cat = document.getElementById('service-cat').value;
-            const itemSelect = document.getElementById('service-item');
-            itemSelect.innerHTML = "";
-            serviceData[cat].forEach(service => {
-                let option = document.createElement('option');
-                option.text = service;
-                itemSelect.add(option);
-            });
-        }
-
-        function startCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                counter.innerText = '0';
-                const updateCounter = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const c = +counter.innerText;
-                    const increment = target / 40;
-                    if(c < target) {
-                        counter.innerText = `${Math.ceil(c + increment)}`;
-                        setTimeout(updateCounter, 25);
-                    } else {
-                        counter.innerText = target.toLocaleString();
-                    }
-                };
-                updateCounter();
-            });
-        }
-
-        window.onload = () => {
-            updateServiceDropdown();
-        };
     </script>
 </body>
 </html>
