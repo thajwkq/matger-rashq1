@@ -32,7 +32,7 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
-            padding-bottom: 80px; /* لمساحة الشريط السفلي */
+            padding-bottom: 80px;
             overflow-x: hidden;
         }
 
@@ -54,6 +54,13 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            position: relative;
+        }
+
+        /* حاوية الأيقونة الدائرية للمستخدم */
+        .user-avatar-container {
+            position: relative;
+            cursor: pointer;
         }
 
         .user-avatar {
@@ -67,6 +74,59 @@
             justify-content: center;
             font-weight: 900;
             font-size: 18px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* القائمة المنسدلة الاحترافية للأيقونة الدائرية */
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            width: 200px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .user-dropdown.show-menu {
+            display: flex;
+        }
+
+        .user-dropdown-item {
+            padding: 12px 15px;
+            color: #fff;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: right;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--secondary);
+        }
+
+        .user-dropdown-item.logout-style {
+            color: #ff3333;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .user-dropdown-item.logout-style:hover {
+            background-color: rgba(255, 51, 51, 0.1);
         }
 
         .notification-btn {
@@ -335,6 +395,32 @@
         .tg-btn { background: linear-gradient(135deg, #0088cc, #00a2ed); box-shadow: 0 4px 15px rgba(0,136,204,0.3); }
         .ig-btn { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); box-shadow: 0 4px 15px rgba(253,29,29,0.3); }
 
+        /* النوافذ المنبثقة التوضيحية (Modals) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .modal-header {
+            font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--secondary);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
         /* الجداول واستعراض سجل الطلبات */
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; background-color: var(--bg-card); border-radius: 16px; overflow: hidden; }
@@ -344,7 +430,7 @@
         .status-success { background: rgba(0, 200, 81, 0.15); color: #00C851; }
         .status-pending { background: rgba(255, 187, 51, 0.15); color: #ffbb33; }
 
-        /* شريط التنقل السفلي الثابت (Bottom Navigation Bar) */
+        /* شريط التنقل السفلي الثابت */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -372,7 +458,6 @@
         .nav-item i { font-size: 20px; }
         .nav-item.active-nav { color: var(--secondary); }
 
-        /* لوحة التحكم السرية للمطور */
         .admin-zone {
             border: 2px dashed #ff3333; padding: 20px; border-radius: 20px; background: rgba(255,0,0,0.01); margin-top: 35px;
         }
@@ -382,12 +467,31 @@
 
     <div class="app-bar" id="app-bar-view" style="display: none;">
         <div class="app-bar-right">
-            <div class="user-avatar" id="avatar-letters">ذ</div>
+            <div class="user-avatar-container" onclick="toggleUserMenu(event)">
+                <div class="user-avatar" id="avatar-letters">ذ</div>
+                
+                <div class="user-dropdown" id="user-dropdown-menu">
+                    <div class="user-dropdown-item" onclick="openInfoModal('about')"><i class="fas fa-info-circle"></i> من نحن</div>
+                    <div class="user-dropdown-item" onclick="openInfoModal('privacy')"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</div>
+                    <div class="user-dropdown-item" onclick="showPage('billing')"><i class="fas fa-headset"></i> الدعم الفني والشحن</div>
+                    <div class="user-dropdown-item logout-style" onclick="triggerFirebaseLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
+                </div>
+            </div>
             <div class="notification-btn"><i class="fas fa-bell"></i></div>
         </div>
         <div class="app-logo">
             <span>MTGER</span>
             <div class="logo-badge"><i class="fas fa-bolt"></i></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="info-modal" onclick="closeInfoModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span id="modal-title-text">العنوان</span>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="closeInfoModal()"></i>
+            </div>
+            <p id="modal-body-text" style="font-size:14px; line-height:1.7; color:#ccc;"></p>
         </div>
     </div>
 
@@ -465,8 +569,7 @@
             <span onclick="showPage('services')" style="color:var(--secondary); font-size:14px; cursor:pointer;">عرض الكل</span>
         </div>
 
-        <div class="grid-container" id="public-services-grid">
-            </div>
+        <div class="grid-container" id="public-services-grid"></div>
     </div>
 
     <div id="dashboard" class="page-section">
@@ -524,7 +627,7 @@
         <div class="form-box" style="text-align: center;">
             <div style="font-size: 50px; color: var(--secondary); margin-bottom: 15px;"><i class="fas fa-wallet"></i></div>
             <h2 style="color: #fff; margin-bottom: 10px;">شحن محفظتك المالية</h2>
-            <p style="font-size: 14px; margin-bottom: 30px; line-net:1.6;">لشحن رصيدك بشكل فوري وآمن، تواصل مباشرة مع المطور عبر أحد القنوات الرسمية التالية، وسيتم تعبئة حسابك في ثوانٍ معدودة:</p>
+            <p style="font-size: 14px; margin-bottom: 30px; line-height:1.6;">لشحن رصيدك بشكل فوري وآمن، تواصل مباشرة مع المطور عبر أحد القنوات الرسمية التالية، وسيتم تعبئة حسابك في ثوانٍ معدودة:</p>
             
             <a href="https://t.me/th2f6?text=مرحباً%20مطور%20متجر%20IQ،%20أريد%20شحن%20رصيد%20في%20حسابي" target="_blank" class="contact-channel-btn tg-btn">
                 <i class="fab fa-telegram-plane fa-lg"></i>
@@ -644,7 +747,6 @@
             const target = document.getElementById(pageId);
             if(target) target.classList.add('active-page');
 
-            // تحديث إضاءة الأيقونات بالسفل
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => item.classList.remove('active-nav'));
             
@@ -665,6 +767,13 @@
                 showPage('home');
             }
         }
+
+        // إتاحة دالة الخروج السحابي للفايربيس بشكل عام لقائمة المستخدم
+        window.triggerFirebaseLogout = function() {
+            signOut(auth).then(() => {
+                location.reload();
+            }).catch((err) => showToast("فشل تسجيل الخروج: " + err.message));
+        };
 
         // ---------------- مصادقة المستخدمين ----------------
         document.getElementById('login-form').addEventListener('submit', (e) => {
@@ -691,7 +800,12 @@
 
         getRedirectResult(auth).then((res) => {
             if(res && res.user) {
-                set(ref(db, 'users/' + res.user.uid), { fullname: res.user.displayName, email: res.user.email, balance: 0.00 });
+                set(ref(db, 'users/' + res.user.uid), { 
+                    fullname: res.user.displayName, 
+                    email: res.user.email, 
+                    balance: 0.00,
+                    photoURL: res.user.photoURL || ""
+                });
                 initSiteUI(res.user.email === ADMIN_EMAIL);
             }
         });
@@ -701,11 +815,20 @@
                 currentUserUid = user.uid;
                 const isAdmin = (user.email === ADMIN_EMAIL);
                 
+                // تحديث بيانات المستخدم وصورته الشخصية الحقيقية من جوجل
                 onValue(ref(db, 'users/' + user.uid), (snap) => {
                     const uData = snap.val();
                     if(uData) {
                         document.getElementById('client-welcome-title').innerText = `مرحباً، ${uData.fullname || 'عميلنا'} 👋`;
-                        document.getElementById('avatar-letters').innerText = (uData.fullname || 'ذ').substring(0, 1);
+                        
+                        const avatarDiv = document.getElementById('avatar-letters');
+                        // في حال توفر صورة مستخدم حقيقية من جوجل يتم حقنها فوراً
+                        if(user.photoURL) {
+                            avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Google User">`;
+                        } else {
+                            avatarDiv.innerText = (uData.fullname || 'ذ').substring(0, 1);
+                        }
+                        
                         document.getElementById('user-balance-display').innerText = (uData.balance || 0).toFixed(2) + " USD";
                     }
                 });
@@ -748,18 +871,15 @@
                     const s = child.val();
                     globalServices[id] = s;
 
-                    // تعبئة قائمة الطلب الجديد
                     let op = document.createElement('option');
                     op.value = id;
                     op.text = `${s.name} [${s.price}$]`;
                     select.add(op);
 
-                    // تعيين أيقونة المنصة المناسبة
                     let iconClass = "fab fa-instagram insta-color";
                     if(s.platform === "tiktok") iconClass = "fab fa-tiktok tiktok-color";
                     if(s.platform === "telegram") iconClass = "fab fa-telegram-plane tele-color";
 
-                    // كود الكرت المماثل تماماً لطلبك
                     const cardHTML = `
                         <div class="service-card" onclick="showPage('dashboard')">
                             <div class="card-badge">-50%</div>
@@ -864,6 +984,37 @@
     </script>
 
     <script>
+        // فتح وإغلاق القائمة المنسدلة الفرعية للأيقونة الدائرية
+        function toggleUserMenu(event) {
+            event.stopPropagation();
+            document.getElementById('user-dropdown-menu').classList.toggle('show-menu');
+        }
+
+        // إغلاق القائمة في حال الضغط في أي مكان خارجها
+        document.addEventListener('click', function() {
+            document.getElementById('user-dropdown-menu').classList.remove('show-menu');
+        });
+
+        // تشغيل النوافذ المنبثقة التوضيحية (من نحن وسياسة الخصوصية)
+        function openInfoModal(type) {
+            const modal = document.getElementById('info-modal');
+            const title = document.getElementById('modal-title-text');
+            const body = document.getElementById('modal-body-text');
+
+            if(type === 'about') {
+                title.innerText = "من نحن - MTGER IQ";
+                body.innerText = "منصة MTGER IQ هي الخيار الأول والأسرع في العراق لتقديم خدمات الدعم والرشق السحابي المباشر لمختلف منصات التواصل الاجتماعي (إنستغرام، تيك توك، تيليجرام)، نعمل بأعلى كفاءة لضمان نمو حساباتك بشكل احترافي.";
+            } else if (type === 'privacy') {
+                title.innerText = "سياسة الخصوصية والأمان";
+                body.innerText = "في MTGER IQ نحترم خصوصيتك بالكامل. جميع بياناتك الشخصية، روابط الحسابات المستهدفة، والعمليات المالية مشفرة وآمنة تماماً بموجب حماية الفايربيس السحابية ولا يتم مشاركتها مع أي جهات خارجية.";
+            }
+            modal.style.display = 'flex';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').style.display = 'none';
+        }
+
         function showToast(msg) {
             const t = document.getElementById('toast-notification');
             t.innerText = msg; t.style.display = 'block';
