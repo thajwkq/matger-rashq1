@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTGER IQ | منصة خدمات التواصل الاجتماعي السحابية</title>
+    <title>MTGER IQ | منصة الخدمات السحابية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -33,7 +33,7 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
-            padding-bottom: 80px;
+            padding-bottom: 90px;
             overflow-x: hidden;
         }
 
@@ -169,20 +169,20 @@
             padding: 20px;
             max-width: 600px;
             margin: 0 auto;
-            animation: fadeIn 0.4s ease-in-out forwards;
+            margin-top: 70px;
+            animation: fadeIn 0.3s ease-in-out forwards;
         }
 
         .page-section.active-page { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* الهيرو المرفوع للأعلى */
+        /* الهيرو */
         .welcome-hero {
             text-align: center;
-            margin-top: 70px;
             margin-bottom: 20px;
         }
 
@@ -205,7 +205,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* البانر الإعلاني الزجاجي الفاخر والسحب التفاعلي */
+        /* البانر الإعلاني الزجاجي الدوار */
         .glass-carousel-container {
             position: relative;
             width: 100%;
@@ -263,7 +263,7 @@
             background: var(--secondary); width: 18px; border-radius: 4px;
         }
 
-        /* بوكس التقييم المحدث بقابلية النقر */
+        /* بوكس التقييم المحدث */
         .rating-box {
             background: #15120c;
             border: 1px solid rgba(255,183,3,0.15);
@@ -296,9 +296,6 @@
             font-size: 18px;
             font-weight: 700;
             margin: 20px 0 12px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .grid-container {
@@ -317,7 +314,6 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 180px;
-            cursor: pointer;
         }
 
         .card-badge {
@@ -347,7 +343,7 @@
             padding: 25px;
             border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.03);
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .form-group { margin-bottom: 20px; }
@@ -374,12 +370,14 @@
         th, td { padding: 14px; text-align: right; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         th { background-color: rgba(255,255,255,0.02); color: #fff; }
         
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: #0d1117; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        /* أشرطة التنقل السفلية الثابتة */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: #0d1117; border-top: 1px solid rgba(255,255,255,0.05); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000; }
         .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-main); font-size: 12px; cursor: pointer; font-weight: 600; gap: 4px; }
         .nav-item i { font-size: 20px; }
         .nav-item.active-nav { color: var(--secondary); }
+        .nav-item.admin-nav-item.active-nav { color: #ff3333; }
 
-        .admin-zone { border: 2px dashed #ff3333; padding: 20px; border-radius: 20px; background: rgba(255,0,0,0.01); margin-top: 35px; }
+        .admin-zone-title { color: #ff3333; font-weight: 900; font-size: 22px; text-align: center; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .admin-btn-action { padding: 6px 12px; border: none; border-radius: 8px; font-weight: bold; color: #fff; cursor: pointer; margin-left: 5px; }
     </style>
 </head>
@@ -388,15 +386,14 @@
     <div class="app-bar" id="app-bar-view" style="display: none;">
         <div class="app-bar-right">
             <div class="user-avatar-container" onclick="toggleUserMenu(event)">
-                <div class="user-avatar" id="avatar-letters">ذ</div>
+                <div class="user-avatar" id="avatar-letters">م</div>
                 <div class="user-dropdown" id="user-dropdown-menu">
                     <div class="user-dropdown-item" onclick="openInfoModal('about')"><i class="fas fa-info-circle"></i> من نحن</div>
                     <div class="user-dropdown-item" onclick="openInfoModal('privacy')"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</div>
-                    <div class="user-dropdown-item" onclick="showPage('billing')"><i class="fas fa-headset"></i> الدعم الفني</div>
                     <div class="user-dropdown-item logout-style" onclick="triggerFirebaseLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
                 </div>
             </div>
-            <div class="notification-btn" onclick="openNotificationsModal()">
+            <div class="notification-btn" id="noti-bell-wrapper" onclick="openNotificationsModal()">
                 <i class="fas fa-bell"></i>
                 <div class="notification-badge" id="noti-red-dot"></div>
             </div>
@@ -421,7 +418,7 @@
 
     <div id="toast-notification" style="position: fixed; top: 20px; left: 20px; z-index: 9999; background: var(--secondary); color:#000; padding:15px 25px; border-radius:12px; font-weight:bold; display:none;"></div>
 
-    <div id="login" class="page-section active-page" style="padding-top: 10vh;">
+    <div id="login" class="page-section active-page" style="margin-top: 10vh;">
         <div class="form-box">
             <h2 style="text-align: center; color: #fff; margin-bottom: 25px;">تسجيل الدخول إلى MTGER IQ</h2>
             <form id="login-form">
@@ -436,7 +433,7 @@
                 <button type="submit" class="btn-main btn-purple">دخول</button>
             </form>
             <button class="btn-main" id="google-login-btn" style="background:#fff; color:#000; margin-top:15px; display:flex; align-items:center; justify-content:center; gap:10px;">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:18px;">
+                <i class="fab fa-google" style="color: #db4437; font-size: 18px;"></i>
                 المتابعة باستخدام Google
             </button>
             <p style="text-align: center; margin-top: 25px; font-size: 14px;">
@@ -445,7 +442,7 @@
         </div>
     </div>
 
-    <div id="register" class="page-section" style="padding-top: 10vh;">
+    <div id="register" class="page-section" style="margin-top: 10vh;">
         <div class="form-box">
             <h2 style="text-align: center; color: #fff; margin-bottom: 25px;">إنشاء حساب جديد</h2>
             <form id="register-form">
@@ -466,6 +463,7 @@
         </div>
     </div>
 
+
     <div id="home" class="page-section">
         <div class="welcome-hero">
             <h4 id="client-welcome-title">مرحباً، زائر 👋</h4>
@@ -473,8 +471,7 @@
         </div>
 
         <div class="glass-carousel-container" id="glass-carousel">
-            <div class="carousel-track" id="carousel-track">
-                </div>
+            <div class="carousel-track" id="carousel-track"></div>
             <div class="carousel-dots" id="carousel-dots"></div>
         </div>
 
@@ -486,21 +483,17 @@
             <button class="rate-btn-trigger" onclick="openRatingModal()">اضغط للتقييم ⭐</button>
         </div>
 
-        <div class="section-title">
-            <span>العروض المميزة</span>
-        </div>
+        <div class="section-title">العروض المميزة</div>
         <div class="grid-container" id="public-services-grid"></div>
     </div>
 
     <div id="dashboard" class="page-section">
-        <div style="background: var(--bg-card); padding: 20px; border-radius: 166px; margin-bottom: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05);">
+        <div style="background: var(--bg-card); padding: 20px; border-radius: 20px; margin-bottom: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05);">
             <div style="font-size:13px; color:#aaa;">رصيدك المتوفر حالياً:</div>
             <div style="font-size:26px; font-weight:900; color:#fff;" id="user-balance-display">0.00 USD</div>
         </div>
-
         <div class="form-box">
             <h3 style="color:#fff; margin-bottom:20px;"><i class="fas fa-paper-plane"></i> تقديم طلب رشق سحابي</h3>
-            
             <div class="form-group">
                 <label>1. اختر المنصة المستهدفة</label>
                 <select id="filter-platform-select" onchange="filterServicesByPlatform()">
@@ -510,7 +503,6 @@
                     <option value="telegram">تيليجرام (Telegram)</option>
                 </select>
             </div>
-
             <form id="new-order-form">
                 <div class="form-group">
                     <label>2. اختر الخدمة المتوفرة</label>
@@ -533,12 +525,12 @@
     </div>
 
     <div id="services" class="page-section">
-        <div class="section-title"><h2>دليل جميع الخدمات</h2></div>
+        <div class="section-title">دليل جميع الخدمات</div>
         <div class="grid-container" id="all-services-grid-list"></div>
     </div>
 
     <div id="orders" class="page-section">
-        <div class="section-title"><h2>سجل ومراقبة طلباتك</h2></div>
+        <div class="section-title">سجل ومراقبة طلباتك</div>
         <div class="table-responsive">
             <table>
                 <thead>
@@ -558,121 +550,136 @@
         <div class="form-box" style="text-align: center;">
             <div style="font-size: 50px; color: var(--secondary); margin-bottom: 15px;"><i class="fas fa-wallet"></i></div>
             <h2 style="color: #fff; margin-bottom: 10px;">شحن محفظتك المالية</h2>
-            <p style="font-size: 14px; margin-bottom: 30px; line-height:1.6;">لشحن رصيدك، تواصل مباشرة مع المطور عبر أحد القنوات الرسمية التالية، وسيتم شحن حسابك فورا:</p>
+            <p style="font-size: 14px; margin-bottom: 30px; line-height:1.6;">لشحن رصيدك، تواصل مباشرة مع المطور وسيتم شحن حسابك فوراً:</p>
             <a href="https://t.me/th2f6" target="_blank" class="contact-channel-btn tg-btn"><i class="fab fa-telegram-plane fa-lg"></i> شحن عبر تليجرام</a>
-            <a href="https://instagram.com/th2f6" target="_blank" class="contact-channel-btn ig-btn"><i class="fab fa-instagram fa-lg"></i> شحن عبر إنستغرام</a>
         </div>
     </div>
 
-    <div id="admin-dashboard" class="page-section">
-        <div class="admin-zone">
-            <h2 style="color: #ff3333; text-align:center; margin-bottom:20px;"><i class="fas fa-user-shield"></i> لوحة الإدارة المتقدمة</h2>
-            
-            <div class="form-box" style="border-color: #b5179e; margin-bottom: 20px;">
-                <h4 style="color:#b5179e; margin-bottom:15px;"><i class="fas fa-images"></i> إدارة ونشر البانرات الزجاجية المتحركة</h4>
-                <form id="admin-add-banner-form">
-                    <div class="form-group">
-                        <label>عنوان العرض الرئيسي</label>
-                        <input type="text" id="admin-banner-title" placeholder="مثال: خصومات كبرى على الفولو" required>
-                    </div>
-                    <div class="form-group">
-                        <label>نص وتفاصيل العرض الفرعي</label>
-                        <textarea id="admin-banner-desc" rows="2" placeholder="اكتب شروط وتفاصيل العرض للعميل..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-main btn-purple">نشر وتعميم البانر</button>
-                </form>
-                <div class="table-responsive" style="margin-top: 15px;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>البانر النشط</th>
-                                <th>حذف</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-banners-manage-table"></tbody>
-                    </table>
-                </div>
-            </div>
 
-            <div class="form-box" style="border-color: var(--secondary); margin-bottom: 20px;">
-                <h4 style="color:var(--secondary); margin-bottom:15px;"><i class="fas fa-broadcast-tower"></i> بث إشعار عام للعملاء</h4>
+    <div id="admin-orders" class="page-section admin-section">
+        <div class="admin-zone-title"><i class="fas fa-shopping-cart"></i> الطلبات الواردة والمعلقة</div>
+        <div class="form-box">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>العميل</th>
+                            <th>الخدمة</th>
+                            <th>الكمية</th>
+                            <th>الإجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-orders-table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-services" class="page-section admin-section">
+        <div class="admin-zone-title"><i class="fas fa-tags"></i> إدارة ونشر الخدمات</div>
+        <div class="form-box" style="margin-bottom: 20px;">
+            <h4 style="color:#ffaa00; margin-bottom:15px;"><i class="fas fa-plus"></i> إضافة خدمة رشق جديدة</h4>
+            <form id="admin-add-service-form">
                 <div class="form-group">
-                    <label>نص الإشعار التنبيهي</label>
-                    <textarea id="admin-notice-input" rows="2" placeholder="اكتب شيئاً ليظهر فوق جرس العميل..."></textarea>
+                    <label>نوع المنصة</label>
+                    <select id="admin-service-platform">
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="telegram">Telegram</option>
+                    </select>
                 </div>
-                <button type="button" onclick="broadcastSystemNotification()" class="btn-main btn-blue">بث وتعميم الإشعار</button>
-            </div>
-
-            <div class="form-box" style="border-color:#ffaa00; margin-bottom:20px;">
-                <h4 style="color:#ffaa00; margin-bottom:15px;"><i class="fas fa-plus"></i> إنشاء خدمة رشق جديدة</h4>
-                <form id="admin-add-service-form">
-                    <div class="form-group">
-                        <label>نوع المنصة</label>
-                        <select id="admin-service-platform">
-                            <option value="instagram">instagram</option>
-                            <option value="tiktok">tiktok</option>
-                            <option value="telegram">telegram</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>اسم الخدمة</label>
-                        <input type="text" id="admin-service-name" placeholder="مثال: متابعين ثبات عالي" required>
-                    </div>
-                    <div class="form-group">
-                        <label>السعر لكل 1000 قطعة ($)</label>
-                        <input type="number" id="admin-service-price" step="0.01" placeholder="2.50" required>
-                    </div>
-                    <button type="submit" class="btn-main" style="background:#ffaa00; color:#fff;">نشر الخدمة في السيرفر</button>
-                </form>
-            </div>
-
-            <div class="form-box" style="border-color: #fff; margin-bottom: 20px;">
-                <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-edit"></i> التحكم وحذف وتعديل الخدمات الحالية</h4>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>الخدمة</th>
-                                <th>السعر ($)</th>
-                                <th>إجراء</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-services-manage-table"></tbody>
-                    </table>
+                <div class="form-group">
+                    <label>اسم الخدمة</label>
+                    <input type="text" id="admin-service-name" placeholder="مثال: متابعين ثبات عالي" required>
                 </div>
-            </div>
-
-            <div class="form-box">
-                <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-shopping-cart"></i> طلبات الرشق الواردة من العملاء</h4>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>العميل</th>
-                                <th>الخدمة</th>
-                                <th>الكمية</th>
-                                <th>الإجراء</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-orders-table"></tbody>
-                    </table>
+                <div class="form-group">
+                    <label>السعر لكل 1000 قطعة ($)</label>
+                    <input type="number" id="admin-service-price" step="0.01" placeholder="2.50" required>
                 </div>
+                <button type="submit" class="btn-main" style="background:#ffaa00; color:#fff;">نشر الخدمة في السيرفر</button>
+            </form>
+        </div>
+        <div class="form-box">
+            <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-edit"></i> تعديل وحذف الخدمات الحالية</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الخدمة</th>
+                            <th>السعر ($)</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-services-manage-table"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <div class="bottom-nav" id="bottom-nav-bar" style="display: none;">
+    <div id="admin-banners" class="page-section admin-section">
+        <div class="admin-zone-title"><i class="fas fa-images"></i> إدارة البانرات الإعلانية</div>
+        <div class="form-box" style="margin-bottom: 20px;">
+            <h4 style="color:#b5179e; margin-bottom:15px;"><i class="fas fa-plus-circle"></i> نشر بانر زجاجي جديد</h4>
+            <form id="admin-add-banner-form">
+                <div class="form-group">
+                    <label>عنوان العرض الرئيسي</label>
+                    <input type="text" id="admin-banner-title" placeholder="خصومات كبرى على الفولو" required>
+                </div>
+                <div class="form-group">
+                    <label>نص وتفاصيل العرض الفرعي</label>
+                    <textarea id="admin-banner-desc" rows="2" placeholder="اكتب شروط وتفاصيل العرض..." required></textarea>
+                </div>
+                <button type="submit" class="btn-main btn-purple">نشر وتعميم البانر</button>
+            </form>
+        </div>
+        <div class="form-box">
+            <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-list"></i> البانرات النشطة حالياً</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>العرض النشط</th>
+                            <th>حذف</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-banners-manage-table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-notifications" class="page-section admin-section">
+        <div class="admin-zone-title"><i class="fas fa-broadcast-tower"></i> بث التنبيهات العامة</div>
+        <div class="form-box">
+            <h4 style="color:var(--secondary); margin-bottom:15px;">إرسال إشعار فوري يظهر فوق جرس العميل</h4>
+            <div class="form-group">
+                <label>نص التنبيه المستهدف</label>
+                <textarea id="admin-notice-input" rows="3" placeholder="اكتب التعليمات أو التنبيهات الجديدة هنا..."></textarea>
+            </div>
+            <button type="button" onclick="broadcastSystemNotification()" class="btn-main btn-blue">بث وتعميم الإشعار فورا</button>
+        </div>
+    </div>
+
+
+    <div class="bottom-nav" id="bottom-nav-user">
         <div class="nav-item active-nav" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i> <span>الرئيسية</span></div>
         <div class="nav-item" id="nav-services" onclick="showPage('services')"><i class="fas fa-tags"></i> <span>الخدمات</span></div>
         <div class="nav-item" id="nav-dashboard" onclick="showPage('dashboard')"><i class="fas fa-plus-circle"></i> <span>طلب جديد</span></div>
         <div class="nav-item" id="nav-orders" onclick="showPage('orders')"><i class="fas fa-box"></i> <span>طلباتي</span></div>
         <div class="nav-item" id="nav-billing" onclick="showPage('billing')"><i class="fas fa-wallet"></i> <span>شحن</span></div>
-        <div class="nav-item" id="nav-admin" onclick="showPage('admin-dashboard')" style="display:none; color:#ff3333;"><i class="fas fa-user-shield"></i> <span>الإدارة</span></div>
     </div>
+
+    <div class="bottom-nav" id="bottom-nav-admin">
+        <div class="nav-item admin-nav-item active-nav" id="nav-admin-orders" onclick="showPage('admin-orders')"><i class="fas fa-shopping-cart"></i> <span>الطلبات</span></div>
+        <div class="nav-item admin-nav-item" id="nav-admin-services" onclick="showPage('admin-services')"><i class="fas fa-tags"></i> <span>الخدمات</span></div>
+        <div class="nav-item admin-nav-item" id="nav-admin-banners" onclick="showPage('admin-banners')"><i class="fas fa-images"></i> <span>البانرات</span></div>
+        <div class="nav-item admin-nav-item" id="nav-admin-notifications" onclick="showPage('admin-notifications')"><i class="fas fa-broadcast-tower"></i> <span>بث إشعار</span></div>
+    </div>
+
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, set, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -694,6 +701,7 @@
         let globalServices = {};
         let systemCurrentNotification = "لا توجد إشعارات حالياً.";
         const ADMIN_EMAIL = "admin@mtger.iq";
+        let isSystemAdmin = false;
 
         window.showPage = function(pageId) {
             const sections = document.querySelectorAll('.page-section');
@@ -710,44 +718,67 @@
             window.scrollTo(0, 0);
         };
 
-        function initSiteUI(isAdmin = false) {
+        function configureUIHierarchy(isAdmin = false) {
+            document.getElementById('login').classList.remove('active-page');
+            document.getElementById('register').classList.remove('active-page');
             document.getElementById('app-bar-view').style.display = 'flex';
-            document.getElementById('bottom-nav-bar').style.display = 'flex';
+
             if(isAdmin) {
-                document.getElementById('nav-admin').style.display = 'flex';
-                showPage('admin-dashboard');
+                // إخفاء كلي لعناصر العميل وقائمته السفلية
+                document.getElementById('bottom-nav-user').style.display = 'none';
+                document.getElementById('noti-bell-wrapper').style.display = 'none';
+                
+                // تفعيل شريط الإدارة السفلي والتحويل لصفحة الطلبات الإدارية مباشرة
+                document.getElementById('bottom-nav-admin').style.display = 'flex';
+                showPage('admin-orders');
             } else {
-                document.getElementById('nav-admin').style.display = 'none';
+                // تفعيل واجهة العميل العادية وإخفاء أزرار الإدارة
+                document.getElementById('bottom-nav-admin').style.display = 'none';
+                document.getElementById('noti-bell-wrapper').style.display = 'flex';
+                
+                document.getElementById('bottom-nav-user').style.display = 'flex';
                 showPage('home');
             }
         }
 
         window.triggerFirebaseLogout = function() {
-            signOut(auth).then(() => location.reload());
+            signOut(auth).then(() => {
+                location.reload();
+            });
         };
 
-        // تسجيل الدخول مع بقاء تهيئة جوجل دون تغيير لضمان استقرار السيستم لديك
+        // إصلاح تسجيل دخول Google لحل مشكلة عدم التحويل والارتداد
         document.getElementById('google-login-btn').addEventListener('click', () => {
-            signInWithRedirect(auth, googleProvider);
-        });
-
-        getRedirectResult(auth).then((res) => {
-            if(res && res.user) {
-                set(ref(db, 'users/' + res.user.uid), { 
-                    fullname: res.user.displayName, 
-                    email: res.user.email, 
-                    balance: 0.00, // رصيد الحسابات الجديدة صفر تماماً $0.00
-                    photoURL: res.user.photoURL || ""
-                });
-                initSiteUI(res.user.email === ADMIN_EMAIL);
-            }
+            signInWithPopup(auth, googleProvider)
+            .then((result) => {
+                const user = result.user;
+                // التحقق التلقائي إذا كان الحساب مسجل مسبقاً لمنع تصفير الرصيد للقدامى
+                onValue(ref(db, 'users/' + user.uid), (snap) => {
+                    if(!snap.exists()) {
+                        set(ref(db, 'users/' + user.uid), { 
+                            fullname: user.displayName, 
+                            email: user.email, 
+                            balance: 0.00,
+                            photoURL: user.photoURL || ""
+                        });
+                    }
+                    isSystemAdmin = (user.email === ADMIN_EMAIL);
+                    configureUIHierarchy(isSystemAdmin);
+                }, { onlyOnce: true });
+            })
+            .catch((err) => {
+                showToast("فشل الاتصال: تم إعادة تهيئة الجلسة التلقائية آمنياً.");
+            });
         });
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
             signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-pass').value)
-            .then((cred) => initSiteUI(cred.user.email === ADMIN_EMAIL))
-            .catch((err) => showToast("خطأ: " + err.message));
+            .then((cred) => {
+                isSystemAdmin = (cred.user.email === ADMIN_EMAIL);
+                configureUIHierarchy(isSystemAdmin);
+            })
+            .catch((err) => showToast("بيانات الدخول غير صحيحة"));
         });
 
         document.getElementById('register-form').addEventListener('submit', (e) => {
@@ -755,16 +786,18 @@
             const name = document.getElementById('reg-name').value;
             createUserWithEmailAndPassword(auth, document.getElementById('reg-email').value, document.getElementById('reg-pass').value)
             .then((cred) => {
-                set(ref(db, 'users/' + cred.user.uid), { fullname: name, email: cred.user.email, balance: 0.00 }); // تصفير رصيد المشتركين الجدد
-                initSiteUI(false);
+                set(ref(db, 'users/' + cred.user.uid), { fullname: name, email: cred.user.email, balance: 0.00 });
+                isSystemAdmin = false;
+                configureUIHierarchy(false);
             })
-            .catch((err) => showToast("خطأ: " + err.message));
+            .catch((err) => showToast("خطأ في إنشاء الحساب"));
         });
 
+        // مراقبة بقاء المستخدم داخل الحساب لمنع الارتداد التلقائي لشاشة الدخول
         onAuthStateChanged(auth, (user) => {
             if(user) {
                 currentUserUid = user.uid;
-                const isAdmin = (user.email === ADMIN_EMAIL);
+                isSystemAdmin = (user.email === ADMIN_EMAIL);
                 
                 onValue(ref(db, 'users/' + user.uid), (snap) => {
                     const uData = snap.val();
@@ -774,7 +807,7 @@
                         if(user.photoURL) {
                             avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
                         } else {
-                            avatarDiv.innerText = (uData.fullname || 'ذ').substring(0, 1);
+                            avatarDiv.innerText = (uData.fullname || 'م').substring(0, 1);
                         }
                         document.getElementById('user-balance-display').innerText = (uData.balance || 0).toFixed(2) + " USD";
                     }
@@ -785,8 +818,15 @@
                 loadCustomerOrders();
                 loadBannersToCarousel();
                 listenToSystemRatings();
-                initSiteUI(isAdmin);
-                if(isAdmin) loadAdminPanels();
+                
+                configureUIHierarchy(isSystemAdmin);
+                if(isSystemAdmin) loadAdminPanels();
+            } else {
+                // إذا لم يكن هناك تسجيل دخول، تظهر صفحة الدخول فقط ويختفي الهيدر
+                document.getElementById('app-bar-view').style.display = 'none';
+                document.getElementById('bottom-nav-user').style.display = 'none';
+                document.getElementById('bottom-nav-admin').style.display = 'none';
+                showPage('login');
             }
         });
 
@@ -795,7 +835,7 @@
             const txt = document.getElementById('admin-notice-input').value;
             if(!txt) return;
             set(ref(db, 'system_notification'), { message: txt }).then(() => {
-                showToast("تم بث التنبيه الفوري!");
+                showToast("تم بث وتعميم التنبيه بنجاح!");
                 document.getElementById('admin-notice-input').value = "";
             });
         };
@@ -804,7 +844,7 @@
             onValue(ref(db, 'system_notification'), (snap) => {
                 if(snap.exists()) {
                     systemCurrentNotification = snap.val().message;
-                    document.getElementById('noti-red-dot').style.display = 'block';
+                    if(!isSystemAdmin) document.getElementById('noti-red-dot').style.display = 'block';
                 }
             });
         }
@@ -812,18 +852,18 @@
         window.openNotificationsModal = function() {
             document.getElementById('noti-red-dot').style.display = 'none';
             const modal = document.getElementById('info-modal');
-            document.getElementById('modal-title-text').innerText = "📢 الإشعارات والتعليمات";
+            document.getElementById('modal-title-text').innerText = "📢 الإشعارات والتعليمات العامة";
             document.getElementById('modal-dynamic-body').innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">${systemCurrentNotification}</p>`;
             modal.style.display = 'flex';
         };
 
-        // ---------------- نشر وإدارة وحذف البانرات الزجاجية من الأدمن ----------------
+        // ---------------- إدارة البانرات الزجاجية ----------------
         document.getElementById('admin-add-banner-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const title = document.getElementById('admin-banner-title').value;
             const desc = document.getElementById('admin-banner-desc').value;
             push(ref(db, 'banners'), { title, desc }).then(() => {
-                showToast("تم نشر وتعميم العرض الزجاجي!");
+                showToast("تم إضافة البانر بنجاح!");
                 document.getElementById('admin-add-banner-form').reset();
             });
         });
@@ -832,8 +872,8 @@
             onValue(ref(db, 'banners'), (snap) => {
                 const track = document.getElementById('carousel-track');
                 const dotsContainer = document.getElementById('carousel-dots');
-                track.innerHTML = "";
-                dotsContainer.innerHTML = "";
+                if(!track || !dotsContainer) return;
+                track.innerHTML = ""; dotsContainer.innerHTML = "";
 
                 if(!snap.exists()) {
                     track.innerHTML = `<div class="carousel-slide"><h2>أهلاً بك في MTGER IQ</h2><p>أفضل وأسرع خدمات الرشق السحابية المتكاملة لحساباتك.</p></div>`;
@@ -843,21 +883,16 @@
                 let index = 0;
                 snap.forEach((child) => {
                     const b = child.val();
-                    track.innerHTML += `
-                        <div class="carousel-slide">
-                            <h2>${b.title}</h2>
-                            <p>${b.desc}</p>
-                        </div>
-                    `;
+                    track.innerHTML += `<div class="carousel-slide"><h2>${b.title}</h2><p>${b.desc}</p></div>`;
                     dotsContainer.innerHTML += `<div class="dot ${index===0?'active-dot':''}" data-slide="${index}"></div>`;
                     index++;
                 });
 
-                initCarouselLogic(); // تشغيل حركة وميكانيكية السحب للبانر الإعلاني
+                initCarouselLogic();
             });
         }
 
-        // ---------------- نظام التقييم السحابي الفعال ----------------
+        // ---------------- نظام التقييم السحابي ----------------
         window.openRatingModal = function() {
             const modal = document.getElementById('info-modal');
             document.getElementById('modal-title-text').innerText = "⭐ شاركنا تقييمك للمتجر";
@@ -871,10 +906,10 @@
                         <i class="far fa-star rating-star-choice" data-star="5" onclick="setStarRating(5)"></i>
                     </div>
                     <input type="text" id="user-comment-rating" placeholder="اكتب تعليقك هنا..." style="width:100%; padding:12px; background:#171b24; border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; margin-bottom:15px;">
-                    <button onclick="submitUserRatingToServer()" class="btn-main btn-blue">إرسال التقييم فوراً</button>
+                    <button onclick="submitUserRatingToServer()" class="btn-main btn-blue">إرسال التقييم</button>
                 </div>
             `;
-            window.currentUserSelectedStars = 5; // الافتراضي خمسة نجوم
+            window.currentUserSelectedStars = 5;
             modal.style.display = 'flex';
             setStarRating(5);
         };
@@ -883,21 +918,15 @@
             window.currentUserSelectedStars = num;
             const stars = document.querySelectorAll('.rating-star-choice');
             stars.forEach((star, i) => {
-                if(i < num) {
-                    star.classList.replace('far', 'fas');
-                } else {
-                    star.classList.replace('fas', 'far');
-                }
+                if(i < num) star.classList.replace('far', 'fas');
+                else star.classList.replace('fas', 'far');
             });
         };
 
         window.submitUserRatingToServer = function() {
-            const comment = document.getElementById('user-comment-rating').value || "خدمة ممتازة";
-            push(ref(db, 'ratings'), {
-                stars: window.currentUserSelectedStars,
-                comment: comment
-            }).then(() => {
-                showToast("شكراً لمشاركتك تقييمك الثمين! ❤️");
+            const comment = document.getElementById('user-comment-rating').value || "ممتاز";
+            push(ref(db, 'ratings'), { stars: window.currentUserSelectedStars, comment: comment }).then(() => {
+                showToast("شكراً لتقييمك الرائع! ❤️");
                 closeInfoModal();
             });
         };
@@ -905,25 +934,22 @@
         function listenToSystemRatings() {
             onValue(ref(db, 'ratings'), (snap) => {
                 if(!snap.exists()) return;
-                let totalStars = 0;
-                let count = 0;
-                snap.forEach((child) => {
-                    totalStars += child.val().stars;
-                    count++;
-                });
+                let totalStars = 0; let count = 0;
+                snap.forEach((child) => { totalStars += child.val().stars; count++; });
                 const avg = (totalStars / count).toFixed(1);
-                document.getElementById('average-rating-num').innerText = `${avg} (${count} تقييم)`;
+                const elem = document.getElementById('average-rating-num');
+                if(elem) elem.innerText = `${avg} (${count} تقييم)`;
             });
         }
 
-        // ---------------- التحكم بالخدمات وتصفيتها وتعديلها ----------------
+        // ---------------- إدارة وقائمت الخدمات ----------------
         document.getElementById('admin-add-service-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const platform = document.getElementById('admin-service-platform').value;
             const name = document.getElementById('admin-service-name').value;
             const price = parseFloat(document.getElementById('admin-service-price').value);
             push(ref(db, 'services'), { platform, name, price }).then(() => {
-                showToast("تم نشر الخدمة بالسيستم.");
+                showToast("تم إدراج الخدمة بنجاح.");
                 document.getElementById('admin-add-service-form').reset();
             });
         });
@@ -932,6 +958,7 @@
             onValue(ref(db, 'services'), (snap) => {
                 const publicGrid = document.getElementById('public-services-grid');
                 const allList = document.getElementById('all-services-grid-list');
+                if(!publicGrid || !allList) return;
                 publicGrid.innerHTML = ""; allList.innerHTML = "";
                 globalServices = {};
                 if(!snap.exists()) return;
@@ -959,6 +986,7 @@
         window.filterServicesByPlatform = function() {
             const selectedPlatform = document.getElementById('filter-platform-select').value;
             const selectElement = document.getElementById('service-item-select');
+            if(!selectElement) return;
             selectElement.innerHTML = "";
             for (const id in globalServices) {
                 const s = globalServices[id];
@@ -980,26 +1008,26 @@
             } else { document.getElementById('order-cost-display').innerText = "0.00"; }
         };
 
-        // لوحات الإدارة والتحكم الكاملة (حذف، تعديل البانرات والخدمات والطلبات)
+        // ---------------- سحب وإدارة لوحة الأدمن المستقلة ----------------
         function loadAdminPanels() {
-            // إدارة البانرات الزجاجية
+            // إدارة البانرات
             onValue(ref(db, 'banners'), (snap) => {
                 const tbody = document.getElementById('admin-banners-manage-table');
-                tbody.innerHTML = "";
+                if(!tbody) return; tbody.innerHTML = "";
                 snap.forEach((child) => {
                     tbody.innerHTML += `<tr><td><b>${child.val().title}</b></td><td><button onclick="deleteBannerFromSystem('${child.key}')" class="admin-btn-action" style="background:#ff3333;"><i class="fas fa-trash"></i></button></td></tr>`;
                 });
             });
 
-            // إدارة وتعديل وحذف خدمات الرشق السحابية
+            // إدارة وتعديل الخدمات
             onValue(ref(db, 'services'), (snap) => {
                 const tbody = document.getElementById('admin-services-manage-table');
-                tbody.innerHTML = "";
+                if(!tbody) return; tbody.innerHTML = "";
                 snap.forEach((child) => {
                     const id = child.key; const s = child.val();
                     tbody.innerHTML += `
                         <tr>
-                            <td><input type="text" id="edit-name-${id}" value="${s.name}" style="background:#222; border:1px solid #444; color:#fff; padding:5px; border-radius:5px; width:110px;"></td>
+                            <td><input type="text" id="edit-name-${id}" value="${s.name}" style="background:#222; border:1px solid #444; color:#fff; padding:5px; border-radius:5px; width:120px;"></td>
                             <td><input type="number" step="0.01" id="edit-price-${id}" value="${s.price}" style="background:#222; border:1px solid #444; color:#fff; padding:5px; border-radius:5px; width:60px;"></td>
                             <td>
                                 <button onclick="updateServiceData('${id}')" class="admin-btn-action" style="background:#00C851;"><i class="fas fa-save"></i></button>
@@ -1010,13 +1038,14 @@
                 });
             });
 
-            // إدارة وإنهاء الطلبات الواردة من المشتركين
+            // إدارة الطلبات الواردة
             onValue(ref(db, 'orders'), (snap) => {
-                const tbody = document.getElementById('admin-orders-table'); tbody.innerHTML = "";
+                const tbody = document.getElementById('admin-orders-table'); 
+                if(!tbody) return; tbody.innerHTML = "";
                 snap.forEach((child) => {
                     const key = child.key; const o = child.val();
                     if(o.status !== "مكتمل") {
-                        tbody.innerHTML += `<tr><td><small>${o.email}</small></td><td>${o.serviceName}</td><td>${o.qty}</td><td><button onclick="markComplete('${key}')" class="admin-btn-action" style="background:#12b5e5;">إنهاء</button></td></tr>`;
+                        tbody.innerHTML += `<tr><td><small>${o.email}</small></td><td>${o.serviceName}</td><td>${o.qty}</td><td><button onclick="markComplete('${key}')" class="admin-btn-action" style="background:#12b5e5;">إنهاء الطلب</button></td></tr>`;
                     }
                 });
             });
@@ -1025,15 +1054,15 @@
         window.updateServiceData = function(id) {
             const newName = document.getElementById(`edit-name-${id}`).value;
             const newPrice = parseFloat(document.getElementById(`edit-price-${id}`).value);
-            update(ref(db, 'services/' + id), { name: newName, price: newPrice }).then(() => showToast("تم حفظ التعديل ✅"));
+            update(ref(db, 'services/' + id), { name: newName, price: newPrice }).then(() => showToast("تم حفظ التعديل بنجاح ✅"));
         };
 
         window.deleteServiceData = function(id) {
-            if(confirm("حذف هذه الخدمة نهائياً؟")) remove(ref(db, 'services/' + id)).then(() => showToast("تم حذف الخدمة"));
+            if(confirm("هل أنت متأكد من حذف هذه الخدمة؟")) remove(ref(db, 'services/' + id)).then(() => showToast("تم حذف الخدمة"));
         };
 
         window.deleteBannerFromSystem = function(key) {
-            remove(ref(db, 'banners/' + key)).then(() => showToast("تم حذف العرض بنجاح 🗑️"));
+            remove(ref(db, 'banners/' + key)).then(() => showToast("تم إزالة العرض بنجاح"));
         };
 
         document.getElementById('new-order-form').addEventListener('submit', (e) => {
@@ -1049,14 +1078,15 @@
                 if(u && (u.balance || 0) >= cost) {
                     update(ref(db, 'users/' + currentUserUid), { balance: u.balance - cost });
                     push(ref(db, 'orders'), { uid: currentUserUid, email: u.email, serviceName: globalServices[id].name, link, qty, cost, status: "قيد الانتظار" })
-                    .then(() => { showToast("🚀 تم خصم الرصيد وبدأ الرشق!"); document.getElementById('new-order-form').reset(); showPage('orders'); });
-                } else { showToast("❌ رصيدك الحالي لا يكفي."); }
+                    .then(() => { showToast("🚀 تم إرسال الطلب وبدأ الرشق!"); document.getElementById('new-order-form').reset(); showPage('orders'); });
+                } else { showToast("❌ رصيدك الحالي غير كافٍ."); }
             }, { onlyOnce: true });
         });
 
         function loadCustomerOrders() {
             onValue(ref(db, 'orders'), (snap) => {
-                const tbody = document.getElementById('orders-table-body'); tbody.innerHTML = "";
+                const tbody = document.getElementById('orders-table-body'); 
+                if(!tbody) return; tbody.innerHTML = "";
                 snap.forEach((child) => {
                     const o = child.val();
                     if(o.uid === currentUserUid) {
@@ -1067,7 +1097,7 @@
         }
 
         window.markComplete = function(key) {
-            update(ref(db, 'orders/' + key), { status: "مكتمل" }).then(() => showToast("تم التحديث لمكتمل!"));
+            update(ref(db, 'orders/' + key), { status: "مكتمل" }).then(() => showToast("تم تنفيذ وإنهاء الطلب بنجاح"));
         };
     </script>
 
@@ -1078,7 +1108,7 @@
             const slides = document.querySelectorAll('.carousel-slide');
             const dots = document.querySelectorAll('.dot');
             
-            if(slides.length === 0) return;
+            if(!container || !track || slides.length === 0) return;
 
             let currentIndex = 0;
             let startX = 0;
@@ -1104,17 +1134,14 @@
 
             function startAutoPlay() {
                 stopAutoPlay();
-                autoPlayTimer = setInterval(nextSlide, 3000); // الانتقال التلقائي كل 3 ثوانٍ
+                autoPlayTimer = setInterval(nextSlide, 3000);
             }
 
             function stopAutoPlay() {
                 if(autoPlayTimer) clearInterval(autoPlayTimer);
             }
 
-            // ميكانيكية دعم السحب اليدوي (Touch + Mouse Swipe)
-            container.addEventListener('mousedown', (e) => {
-                stopAutoPlay(); isDragging = true; startX = e.pageX;
-            });
+            container.addEventListener('mousedown', (e) => { stopAutoPlay(); isDragging = true; startX = e.pageX; });
             container.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
                 const currentX = e.pageX;
@@ -1124,28 +1151,22 @@
             window.addEventListener('mouseup', (e) => {
                 if (!isDragging) return;
                 isDragging = false;
-                const endX = e.pageX;
-                const diff = endX - startX;
+                const diff = e.pageX - startX;
                 if (diff < -50 && currentIndex < slides.length - 1) currentIndex++;
                 else if (diff > 50 && currentIndex > 0) currentIndex--;
                 updateCarouselPosition(); startAutoPlay();
             });
 
-            // دعم اللمس للهواتف الذكية
-            container.addEventListener('touchstart', (e) => {
-                stopAutoPlay(); isDragging = true; startX = e.touches[0].clientX;
-            });
+            container.addEventListener('touchstart', (e) => { stopAutoPlay(); isDragging = true; startX = e.touches[0].clientX; });
             container.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
-                const currentX = e.touches[0].clientX;
-                const diff = currentX - startX;
+                const diff = e.touches[0].clientX - startX;
                 track.style.transform = `translateX(${prevTranslate + diff}px)`;
             });
             container.addEventListener('touchend', (e) => {
                 if (!isDragging) return;
                 isDragging = false;
-                const endX = e.changedTouches[0].clientX;
-                const diff = endX - startX;
+                const diff = e.changedTouches[0].clientX - startX;
                 if (diff < -50 && currentIndex < slides.length - 1) currentIndex++;
                 else if (diff > 50 && currentIndex > 0) currentIndex--;
                 updateCarouselPosition(); startAutoPlay();
@@ -1161,7 +1182,8 @@
         }
 
         document.addEventListener('click', function() {
-            document.getElementById('user-dropdown-menu').classList.remove('show-menu');
+            const element = document.getElementById('user-dropdown-menu');
+            if(element) element.classList.remove('show-menu');
         });
 
         function openInfoModal(type) {
@@ -1171,7 +1193,7 @@
 
             if(type === 'about') {
                 title.innerText = "من نحن - MTGER IQ";
-                dynamicBody.innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">منصة سيرفرات الرشق السحابي الأسرع في العراق والوطن العربي لتنمية حساباتك بأعلى كفاءة وأقل التكاليف.</p>`;
+                dynamicBody.innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">منصة سيرفرات الرشق السحابي الأسرع في العراق لتنمية حساباتك بأعلى كفاءة وأقل التكاليف.</p>`;
             } else if (type === 'privacy') {
                 title.innerText = "سياسة الخصوصية";
                 dynamicBody.innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">جميع عملياتك، الروابط المستهدفة، وبياناتك الشخصية مشفرة ومحمية بالكامل عبر خوادم فايربيس السحابية الآمنة.</p>`;
