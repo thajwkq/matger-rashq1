@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTGER IQ | منصة الخدمات السحابية</title>
+    <title>MTGER IQ | منصة الخدمات العراقية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -91,7 +91,7 @@
             background-color: var(--bg-card);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
-            width: 200px;
+            width: 220px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             display: none;
             flex-direction: column;
@@ -110,6 +110,7 @@
             gap: 10px;
             cursor: pointer;
             transition: 0.2s;
+            text-decoration: none;
         }
 
         .user-dropdown-item:hover {
@@ -379,6 +380,18 @@
 
         .admin-zone-title { color: #ff3333; font-weight: 900; font-size: 22px; text-align: center; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .admin-btn-action { padding: 6px 12px; border: none; border-radius: 8px; font-weight: bold; color: #fff; cursor: pointer; margin-left: 5px; }
+        
+        .admin-link-style {
+            color: var(--secondary);
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 12px;
+            display: inline-block;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -390,6 +403,9 @@
                 <div class="user-dropdown" id="user-dropdown-menu">
                     <div class="user-dropdown-item" onclick="openInfoModal('about')"><i class="fas fa-info-circle"></i> من نحن</div>
                     <div class="user-dropdown-item" onclick="openInfoModal('privacy')"><i class="fas fa-shield-alt"></i> سياسة الخصوصية</div>
+                    <div class="user-dropdown-item" onclick="openInfoModal('support')"><i class="fas fa-headset"></i> خدمة الزبائن</div>
+                    <a href="https://t.me/th2f6" target="_blank" class="user-dropdown-item"><i class="fab fa-telegram-plane" style="color: #0088cc;"></i> تليجرام الدعم</a>
+                    <a href="https://instagram.com/" target="_blank" class="user-dropdown-item"><i class="fab fa-instagram" style="color: #e1306c;"></i> إنستغرام الدعم</a>
                     <div class="user-dropdown-item logout-style" onclick="triggerFirebaseLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
                 </div>
             </div>
@@ -558,13 +574,14 @@
 
     <div id="admin-orders" class="page-section admin-section">
         <div class="admin-zone-title"><i class="fas fa-shopping-cart"></i> الطلبات الواردة والمعلقة</div>
-        <div class="form-box">
+        <div class="form-box" style="margin-bottom: 25px;">
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th>العميل</th>
                             <th>الخدمة</th>
+                            <th>الرابط المطلوب</th>
                             <th>الكمية</th>
                             <th>الإجراء</th>
                         </tr>
@@ -572,6 +589,22 @@
                     <tbody id="admin-orders-table"></tbody>
                 </table>
             </div>
+        </div>
+
+        <div class="admin-zone-title" style="color: #00C851; margin-top: 30px;"><i class="fas fa-wallet"></i> شحن رصيد المستخدمين</div>
+        <div class="form-box">
+            <h4 style="color:#00C851; margin-bottom:15px;"><i class="fas fa-coins"></i> إضافة رصيد مالي لحساب عميل</h4>
+            <form id="admin-recharge-user-form">
+                <div class="form-group">
+                    <label>البريد الإلكتروني للمستخدم المراد شحنه</label>
+                    <input type="email" id="admin-charge-email" placeholder="user@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>المبلغ المالي المضاف بالدولار ($)</label>
+                    <input type="number" id="admin-charge-amount" step="0.01" placeholder="10.00" required>
+                </div>
+                <button type="submit" class="btn-main" style="background:#00C851; color:#fff;">تأكيد شحن الرصيد حسابياً</button>
+            </form>
         </div>
     </div>
 
@@ -680,7 +713,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, set, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, set, push, onValue, update, remove, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCBbRaAuYo6KhH7K6-byjp4SCou0DS4IXc",
@@ -724,18 +757,13 @@
             document.getElementById('app-bar-view').style.display = 'flex';
 
             if(isAdmin) {
-                // إخفاء كلي لعناصر العميل وقائمته السفلية
                 document.getElementById('bottom-nav-user').style.display = 'none';
                 document.getElementById('noti-bell-wrapper').style.display = 'none';
-                
-                // تفعيل شريط الإدارة السفلي والتحويل لصفحة الطلبات الإدارية مباشرة
                 document.getElementById('bottom-nav-admin').style.display = 'flex';
                 showPage('admin-orders');
             } else {
-                // تفعيل واجهة العميل العادية وإخفاء أزرار الإدارة
                 document.getElementById('bottom-nav-admin').style.display = 'none';
                 document.getElementById('noti-bell-wrapper').style.display = 'flex';
-                
                 document.getElementById('bottom-nav-user').style.display = 'flex';
                 showPage('home');
             }
@@ -747,12 +775,10 @@
             });
         };
 
-        // إصلاح تسجيل دخول Google لحل مشكلة عدم التحويل والارتداد
         document.getElementById('google-login-btn').addEventListener('click', () => {
             signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
-                // التحقق التلقائي إذا كان الحساب مسجل مسبقاً لمنع تصفير الرصيد للقدامى
                 onValue(ref(db, 'users/' + user.uid), (snap) => {
                     if(!snap.exists()) {
                         set(ref(db, 'users/' + user.uid), { 
@@ -793,7 +819,6 @@
             .catch((err) => showToast("خطأ في إنشاء الحساب"));
         });
 
-        // مراقبة بقاء المستخدم داخل الحساب لمنع الارتداد التلقائي لشاشة الدخول
         onAuthStateChanged(auth, (user) => {
             if(user) {
                 currentUserUid = user.uid;
@@ -822,7 +847,6 @@
                 configureUIHierarchy(isSystemAdmin);
                 if(isSystemAdmin) loadAdminPanels();
             } else {
-                // إذا لم يكن هناك تسجيل دخول، تظهر صفحة الدخول فقط ويختفي الهيدر
                 document.getElementById('app-bar-view').style.display = 'none';
                 document.getElementById('bottom-nav-user').style.display = 'none';
                 document.getElementById('bottom-nav-admin').style.display = 'none';
@@ -830,7 +854,6 @@
             }
         });
 
-        // ---------------- بث وإدارة الإشعارات السحابية ----------------
         window.broadcastSystemNotification = function() {
             const txt = document.getElementById('admin-notice-input').value;
             if(!txt) return;
@@ -857,7 +880,6 @@
             modal.style.display = 'flex';
         };
 
-        // ---------------- إدارة البانرات الزجاجية ----------------
         document.getElementById('admin-add-banner-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const title = document.getElementById('admin-banner-title').value;
@@ -892,7 +914,6 @@
             });
         }
 
-        // ---------------- نظام التقييم السحابي ----------------
         window.openRatingModal = function() {
             const modal = document.getElementById('info-modal');
             document.getElementById('modal-title-text').innerText = "⭐ شاركنا تقييمك للمتجر";
@@ -942,7 +963,6 @@
             });
         }
 
-        // ---------------- إدارة وقائمت الخدمات ----------------
         document.getElementById('admin-add-service-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const platform = document.getElementById('admin-service-platform').value;
@@ -1008,8 +1028,51 @@
             } else { document.getElementById('order-cost-display').innerText = "0.00"; }
         };
 
-        // ---------------- سحب وإدارة لوحة الأدمن المستقلة ----------------
+        // إدارة لوحة الأدمن المستقلة وتدشين نظام الشحن الذكي عبر الإيميل
         function loadAdminPanels() {
+            // كود معالجة نموذج الشحن السحابي بواسطة الإيميل
+            const chargeForm = document.getElementById('admin-recharge-user-form');
+            if (chargeForm) {
+                chargeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const targetEmail = document.getElementById('admin-charge-email').value.trim().toLowerCase();
+                    const amountToAdd = parseFloat(document.getElementById('admin-charge-amount').value);
+                    
+                    if (!targetEmail || isNaN(amountToAdd)) return;
+
+                    try {
+                        const usersRef = ref(db, 'users');
+                        const snapshot = await get(usersRef);
+                        
+                        if (snapshot.exists()) {
+                            let userFoundKey = null;
+                            let userCurrentBalance = 0;
+                            
+                            snapshot.forEach((childSnap) => {
+                                const userData = childSnap.val();
+                                if (userData.email && userData.email.toLowerCase() === targetEmail) {
+                                    userFoundKey = childSnap.key;
+                                    userCurrentBalance = parseFloat(userData.balance || 0);
+                                }
+                            });
+
+                            if (userFoundKey) {
+                                const newBalance = userCurrentBalance + amountToAdd;
+                                await update(ref(db, 'users/' + userFoundKey), { balance: newBalance });
+                                showToast(`تم شحن حساب ${targetEmail} بمبلغ $${amountToAdd} بنجاح!`);
+                                chargeForm.reset();
+                            } else {
+                                showToast("❌ لم يتم العثور على أي مستخدم مسجل بهذا البريد الإلكتروني.");
+                            }
+                        } else {
+                            showToast("لا توجد بيانات مستخدمين في السيرفر حالياً.");
+                        }
+                    } catch (error) {
+                        showToast("حدث خطأ أثناء الاتصال بقاعدة البيانات السحابية.");
+                    }
+                });
+            }
+
             // إدارة البانرات
             onValue(ref(db, 'banners'), (snap) => {
                 const tbody = document.getElementById('admin-banners-manage-table');
@@ -1038,14 +1101,25 @@
                 });
             });
 
-            // إدارة الطلبات الواردة
+            // جدول طلبات الأدمن
             onValue(ref(db, 'orders'), (snap) => {
                 const tbody = document.getElementById('admin-orders-table'); 
                 if(!tbody) return; tbody.innerHTML = "";
                 snap.forEach((child) => {
                     const key = child.key; const o = child.val();
                     if(o.status !== "مكتمل") {
-                        tbody.innerHTML += `<tr><td><small>${o.email}</small></td><td>${o.serviceName}</td><td>${o.qty}</td><td><button onclick="markComplete('${key}')" class="admin-btn-action" style="background:#12b5e5;">إنهاء الطلب</button></td></tr>`;
+                        const targetLink = o.link ? o.link : "#";
+                        const linkDisplay = o.link ? `<a href="${targetLink}" target="_blank" class="admin-link-style" title="${o.link}">${o.link}</a>` : `<span style="color:#555;">لا يوجد رابط</span>`;
+                        
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><small>${o.email}</small></td>
+                                <td>${o.serviceName}</td>
+                                <td>${linkDisplay}</td>
+                                <td>${o.qty}</td>
+                                <td><button onclick="markComplete('${key}')" class="admin-btn-action" style="background:#12b5e5;">إنهاء الطلب</button></td>
+                            </tr>
+                        `;
                     }
                 });
             });
@@ -1197,6 +1271,11 @@
             } else if (type === 'privacy') {
                 title.innerText = "سياسة الخصوصية";
                 dynamicBody.innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">جميع عملياتك، الروابط المستهدفة، وبياناتك الشخصية مشفرة ومحمية بالكامل عبر خوادم فايربيس السحابية الآمنة.</p>`;
+            } else if (type === 'support') {
+                title.innerText = "خدمة الزبائن والدعم الفني";
+                dynamicBody.innerHTML = `
+                    <p style="font-size:14px; color:#ccc; line-height:1.7; margin-bottom:15px;">يسعدنا دائماً تقديم المساعدة لحل مشاكلك أو الإجابة على استفساراتك. يمكنك التواصل معنا مباشرة عبر القنوات المتاحة في الأعلى.</p>
+                `;
             }
             modal.style.display = 'flex';
         }
