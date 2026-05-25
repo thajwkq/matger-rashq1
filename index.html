@@ -27,6 +27,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
+            user-select: none;
         }
 
         body {
@@ -36,6 +37,7 @@
             overflow-x: hidden;
         }
 
+        /* شريط التطبيق العلوي */
         .app-bar {
             display: flex;
             justify-content: space-between;
@@ -161,37 +163,7 @@
             font-size: 14px;
         }
 
-        .promo-ticker {
-            margin-top: 80px;
-            padding: 10px 20px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .ticker-label {
-            background: var(--purple-gradient);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        .ticker-text {
-            color: #fff;
-            font-size: 14px;
-            white-space: nowrap;
-            animation: marquee 20s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
+        /* حاويات الصفحات والأقسام */
         .page-section {
             display: none;
             padding: 20px;
@@ -207,22 +179,24 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* الهيرو المرفوع للأعلى */
         .welcome-hero {
             text-align: center;
-            margin: 25px 0;
+            margin-top: 70px;
+            margin-bottom: 20px;
         }
 
         .welcome-hero h4 {
             color: #aaa;
-            font-size: 16px;
-            margin-bottom: 5px;
+            font-size: 15px;
+            margin-bottom: 3px;
         }
 
         .welcome-hero h1 {
             color: #fff;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 900;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .welcome-hero h1 span {
@@ -231,6 +205,65 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* البانر الإعلاني الزجاجي الفاخر والسحب التفاعلي */
+        .glass-carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 20px;
+            cursor: grab;
+        }
+        .glass-carousel-container:active { cursor: grabbing; }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, rgba(18, 181, 229, 0.05), rgba(118, 34, 215, 0.05));
+        }
+
+        .carousel-slide h2 {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .carousel-slide p {
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding-bottom: 15px;
+        }
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: 0.3s;
+        }
+        .dot.active-dot {
+            background: var(--secondary); width: 18px; border-radius: 4px;
+        }
+
+        /* بوكس التقييم المحدث بقابلية النقر */
         .rating-box {
             background: #15120c;
             border: 1px solid rgba(255,183,3,0.15);
@@ -239,7 +272,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .stars {
@@ -247,11 +280,22 @@
             font-size: 14px;
         }
 
+        .rate-btn-trigger {
+            background: var(--purple-gradient);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
         .section-title {
             color: #fff;
             font-size: 18px;
             font-weight: 700;
-            margin: 25px 0 15px 0;
+            margin: 20px 0 12px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -288,41 +332,15 @@
             font-weight: bold;
         }
 
-        .card-icon {
-            font-size: 36px;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
+        .card-icon { font-size: 36px; margin: 15px 0; }
         .insta-color { color: #e1306c; }
         .tiktok-color { color: #fff; }
         .tele-color { color: #0088cc; }
 
-        .service-card h3 {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: #555;
-            font-size: 12px;
-        }
-
-        .new-price {
-            color: #fff;
-            font-weight: 900;
-            font-size: 16px;
-        }
+        .service-card h3 { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .old-price { text-decoration: line-through; color: #555; font-size: 12px; }
+        .new-price { color: #fff; font-weight: 900; font-size: 16px; }
 
         .form-box {
             background-color: var(--bg-card);
@@ -332,126 +350,37 @@
             margin-top: 20px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #fff;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 10px; color: #fff; font-weight: 600; font-size: 14px; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--bg-input);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 14px;
-            color: #fff;
-            font-size: 15px;
+            width: 100%; padding: 14px; background-color: var(--bg-input); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; color: #fff; font-size: 15px;
         }
+        .form-group input:focus, .form-group select:focus { border-color: var(--secondary); outline: none; }
 
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--secondary);
-            outline: none;
-        }
-
-        .btn-main {
-            width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            border: none;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
+        .btn-main { width: 100%; padding: 14px; border-radius: 14px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; }
         .btn-purple { background: var(--purple-gradient); color: #fff; }
         .btn-blue { background: var(--blue-gradient); color: #fff; }
 
-        .contact-channel-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 16px;
-            border-radius: 16px;
-            color: #fff;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 15px;
-            text-decoration: none;
-        }
-
+        .contact-channel-btn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; border-radius: 16px; color: #fff; font-weight: bold; font-size: 16px; margin-bottom: 15px; text-decoration: none; }
         .tg-btn { background: linear-gradient(135deg, #0088cc, #00a2ed); }
         .ig-btn { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 20px;
-            max-width: 450px;
-            width: 100%;
-            border: 1px solid rgba(255,255,255,0.05);
-            color: #fff;
-        }
-        .modal-header {
-            font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--secondary);
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: var(--bg-card); padding: 25px; border-radius: 20px; max-width: 450px; width: 100%; border: 1px solid rgba(255,255,255,0.05); color: #fff; }
+        .modal-header { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--secondary); display: flex; justify-content: space-between; align-items: center; }
 
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; }
         table { width: 100%; border-collapse: collapse; background-color: var(--bg-card); border-radius: 16px; overflow: hidden; }
         th, td { padding: 14px; text-align: right; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
         th { background-color: rgba(255,255,255,0.02); color: #fff; }
         
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #0d1117;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-main);
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            gap: 4px;
-        }
-
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background-color: #0d1117; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-main); font-size: 12px; cursor: pointer; font-weight: 600; gap: 4px; }
         .nav-item i { font-size: 20px; }
         .nav-item.active-nav { color: var(--secondary); }
 
-        .admin-zone {
-            border: 2px dashed #ff3333; padding: 20px; border-radius: 20px; background: rgba(255,0,0,0.01); margin-top: 35px;
-        }
-        .admin-btn-action {
-            padding: 6px 12px; border: none; border-radius: 8px; font-weight: bold; color: #fff; cursor: pointer; margin-left: 5px;
-        }
+        .admin-zone { border: 2px dashed #ff3333; padding: 20px; border-radius: 20px; background: rgba(255,0,0,0.01); margin-top: 35px; }
+        .admin-btn-action { padding: 6px 12px; border: none; border-radius: 8px; font-weight: bold; color: #fff; cursor: pointer; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -484,13 +413,10 @@
                 <span id="modal-title-text">العنوان</span>
                 <i class="fas fa-times" style="cursor:pointer;" onclick="closeInfoModal()"></i>
             </div>
-            <p id="modal-body-text" style="font-size:14px; line-height:1.7; color:#ccc;"></p>
+            <div id="modal-dynamic-body">
+                <p id="modal-body-text" style="font-size:14px; line-height:1.7; color:#ccc;"></p>
+            </div>
         </div>
-    </div>
-
-    <div class="promo-ticker" id="promo-ticker-view" style="display: none;">
-        <div class="ticker-label">عروض 🔥</div>
-        <div class="ticker-text">عرض خاص وحصري: احصل على خصم يصل إلى 50% عند الشحن للمرة الأولى داخل النظام!</div>
     </div>
 
     <div id="toast-notification" style="position: fixed; top: 20px; left: 20px; z-index: 9999; background: var(--secondary); color:#000; padding:15px 25px; border-radius:12px; font-weight:bold; display:none;"></div>
@@ -546,12 +472,18 @@
             <h1>رشّق حساباتك<br><span>بشكل احترافي وسريع</span></h1>
         </div>
 
+        <div class="glass-carousel-container" id="glass-carousel">
+            <div class="carousel-track" id="carousel-track">
+                </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
+        </div>
+
         <div class="rating-box">
             <div class="stars">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                <span style="color:#fff; margin-right:5px; font-weight:bold;">5.0</span>
+                <span style="color:#fff; margin-right:5px; font-weight:bold;" id="average-rating-num">5.0</span>
             </div>
-            <div style="color:var(--secondary); font-size:13px; font-weight:bold;">متجر موثق</div>
+            <button class="rate-btn-trigger" onclick="openRatingModal()">اضغط للتقييم ⭐</button>
         </div>
 
         <div class="section-title">
@@ -561,9 +493,9 @@
     </div>
 
     <div id="dashboard" class="page-section">
-        <div style="background: var(--bg-card); padding: 20px; border-radius: 16px; margin-bottom: 20px;">
-            <div style="font-size:14px; color:#aaa;">رصيدك المتوفر حالياً:</div>
-            <div style="font-size:28px; font-weight:900; color:#fff;" id="user-balance-display">0.00 USD</div>
+        <div style="background: var(--bg-card); padding: 20px; border-radius: 166px; margin-bottom: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:13px; color:#aaa;">رصيدك المتوفر حالياً:</div>
+            <div style="font-size:26px; font-weight:900; color:#fff;" id="user-balance-display">0.00 USD</div>
         </div>
 
         <div class="form-box">
@@ -581,7 +513,7 @@
 
             <form id="new-order-form">
                 <div class="form-group">
-                    <label>2. اختر الخدمة المتاحة بناءً على المنصة</label>
+                    <label>2. اختر الخدمة المتوفرة</label>
                     <select id="service-item-select" onchange="calculateOrderCost()"></select>
                 </div>
                 <div class="form-group">
@@ -593,7 +525,7 @@
                     <input type="number" id="order-qty" min="100" value="100" required oninput="calculateOrderCost()">
                 </div>
                 <div style="background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; margin-bottom:20px; color:#fff;">
-                    تكلفة الطلب الإجمالية: <span id="order-cost-display" style="color:var(--secondary); font-weight:900;">0.00</span> USD
+                    تكلفة الطلب الصافية: <span id="order-cost-display" style="color:var(--secondary); font-weight:900;">0.00</span> USD
                 </div>
                 <button type="submit" class="btn-main btn-purple">تأكيد وإرسال الطلب</button>
             </form>
@@ -601,7 +533,7 @@
     </div>
 
     <div id="services" class="page-section">
-        <div class="section-title"><h2>دليل الخدمات الفعال</h2></div>
+        <div class="section-title"><h2>دليل جميع الخدمات</h2></div>
         <div class="grid-container" id="all-services-grid-list"></div>
     </div>
 
@@ -626,28 +558,49 @@
         <div class="form-box" style="text-align: center;">
             <div style="font-size: 50px; color: var(--secondary); margin-bottom: 15px;"><i class="fas fa-wallet"></i></div>
             <h2 style="color: #fff; margin-bottom: 10px;">شحن محفظتك المالية</h2>
-            <p style="font-size: 14px; margin-bottom: 30px; line-height:1.6;">لشحن رصيدك بشكل آمن وسريع، تواصل مباشرة مع المطور عبر أحد القنوات الرسمية التالية، وسيتم تعبئة حسابك فوراً:</p>
-            
-            <a href="https://t.me/th2f6?text=مرحباً%20مطور%20متجر%20IQ،%20أريد%20شحن%20رصيد%20في%20حسابي" target="_blank" class="contact-channel-btn tg-btn">
-                <i class="fab fa-telegram-plane fa-lg"></i> تواصل واشحن عبر تليجرام
-            </a>
-            <a href="https://instagram.com/th2f6" target="_blank" class="contact-channel-btn ig-btn">
-                <i class="fab fa-instagram fa-lg"></i> تواصل واشحن عبر إنستغرام
-            </a>
+            <p style="font-size: 14px; margin-bottom: 30px; line-height:1.6;">لشحن رصيدك، تواصل مباشرة مع المطور عبر أحد القنوات الرسمية التالية، وسيتم شحن حسابك فورا:</p>
+            <a href="https://t.me/th2f6" target="_blank" class="contact-channel-btn tg-btn"><i class="fab fa-telegram-plane fa-lg"></i> شحن عبر تليجرام</a>
+            <a href="https://instagram.com/th2f6" target="_blank" class="contact-channel-btn ig-btn"><i class="fab fa-instagram fa-lg"></i> شحن عبر إنستغرام</a>
         </div>
     </div>
 
     <div id="admin-dashboard" class="page-section">
         <div class="admin-zone">
-            <h2 style="color: #ff3333; text-align:center; margin-bottom:20px;"><i class="fas fa-user-shield"></i> الإدارة العليا للسيرفر</h2>
+            <h2 style="color: #ff3333; text-align:center; margin-bottom:20px;"><i class="fas fa-user-shield"></i> لوحة الإدارة المتقدمة</h2>
             
+            <div class="form-box" style="border-color: #b5179e; margin-bottom: 20px;">
+                <h4 style="color:#b5179e; margin-bottom:15px;"><i class="fas fa-images"></i> إدارة ونشر البانرات الزجاجية المتحركة</h4>
+                <form id="admin-add-banner-form">
+                    <div class="form-group">
+                        <label>عنوان العرض الرئيسي</label>
+                        <input type="text" id="admin-banner-title" placeholder="مثال: خصومات كبرى على الفولو" required>
+                    </div>
+                    <div class="form-group">
+                        <label>نص وتفاصيل العرض الفرعي</label>
+                        <textarea id="admin-banner-desc" rows="2" placeholder="اكتب شروط وتفاصيل العرض للعميل..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-main btn-purple">نشر وتعميم البانر</button>
+                </form>
+                <div class="table-responsive" style="margin-top: 15px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>البانر النشط</th>
+                                <th>حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-banners-manage-table"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="form-box" style="border-color: var(--secondary); margin-bottom: 20px;">
-                <h4 style="color:var(--secondary); margin-bottom:15px;"><i class="fas fa-broadcast-tower"></i> بث إشعار عام لجميع المشتركين</h4>
+                <h4 style="color:var(--secondary); margin-bottom:15px;"><i class="fas fa-broadcast-tower"></i> بث إشعار عام للعملاء</h4>
                 <div class="form-group">
                     <label>نص الإشعار التنبيهي</label>
-                    <textarea id="admin-notice-input" rows="2" placeholder="اكتب الإشعار هنا ليظهر للعملاء فوراً..."></textarea>
+                    <textarea id="admin-notice-input" rows="2" placeholder="اكتب شيئاً ليظهر فوق جرس العميل..."></textarea>
                 </div>
-                <button type="button" onclick="broadcastSystemNotification()" class="btn-main btn-blue">بث وتعميم الإشعار الحالي</button>
+                <button type="button" onclick="broadcastSystemNotification()" class="btn-main btn-blue">بث وتعميم الإشعار</button>
             </div>
 
             <div class="form-box" style="border-color:#ffaa00; margin-bottom:20px;">
@@ -669,19 +622,19 @@
                         <label>السعر لكل 1000 قطعة ($)</label>
                         <input type="number" id="admin-service-price" step="0.01" placeholder="2.50" required>
                     </div>
-                    <button type="submit" class="btn-main" style="background:#ffaa00; color:#fff;">نشر الخدمة في السيستم</button>
+                    <button type="submit" class="btn-main" style="background:#ffaa00; color:#fff;">نشر الخدمة في السيرفر</button>
                 </form>
             </div>
 
-            <div class="form-box" style="border-color: #fff;">
-                <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-edit"></i> التحكم في الخدمات الحالية (حذف / تعديل)</h4>
+            <div class="form-box" style="border-color: #fff; margin-bottom: 20px;">
+                <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-edit"></i> التحكم وحذف وتعديل الخدمات الحالية</h4>
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
                                 <th>الخدمة</th>
                                 <th>السعر ($)</th>
-                                <th>التحكم والإجراء</th>
+                                <th>إجراء</th>
                             </tr>
                         </thead>
                         <tbody id="admin-services-manage-table"></tbody>
@@ -689,8 +642,8 @@
                 </div>
             </div>
 
-            <div class="form-box" style="margin-top:20px;">
-                <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-shopping-cart"></i> الطلبات السحابية القادمة</h4>
+            <div class="form-box">
+                <h4 style="color:#fff; margin-bottom:15px;"><i class="fas fa-shopping-cart"></i> طلبات الرشق الواردة من العملاء</h4>
                 <div class="table-responsive">
                     <table>
                         <thead>
@@ -705,34 +658,21 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 
     <div class="bottom-nav" id="bottom-nav-bar" style="display: none;">
-        <div class="nav-item active-nav" id="nav-home" onclick="showPage('home')">
-            <i class="fas fa-home"></i> <span>الرئيسية</span>
-        </div>
-        <div class="nav-item" id="nav-services" onclick="showPage('services')">
-            <i class="fas fa-tags"></i> <span>العروض</span>
-        </div>
-        <div class="nav-item" id="nav-dashboard" onclick="showPage('dashboard')">
-            <i class="fas fa-plus-circle"></i> <span>طلب جديد</span>
-        </div>
-        <div class="nav-item" id="nav-orders" onclick="showPage('orders')">
-            <i class="fas fa-box"></i> <span>طلباتي</span>
-        </div>
-        <div class="nav-item" id="nav-billing" onclick="showPage('billing')">
-            <i class="fas fa-wallet"></i> <span>شحن</span>
-        </div>
-        <div class="nav-item" id="nav-admin" onclick="showPage('admin-dashboard')" style="display:none; color:#ff3333;">
-            <i class="fas fa-user-shield"></i> <span>الإدارة</span>
-        </div>
+        <div class="nav-item active-nav" id="nav-home" onclick="showPage('home')"><i class="fas fa-home"></i> <span>الرئيسية</span></div>
+        <div class="nav-item" id="nav-services" onclick="showPage('services')"><i class="fas fa-tags"></i> <span>الخدمات</span></div>
+        <div class="nav-item" id="nav-dashboard" onclick="showPage('dashboard')"><i class="fas fa-plus-circle"></i> <span>طلب جديد</span></div>
+        <div class="nav-item" id="nav-orders" onclick="showPage('orders')"><i class="fas fa-box"></i> <span>طلباتي</span></div>
+        <div class="nav-item" id="nav-billing" onclick="showPage('billing')"><i class="fas fa-wallet"></i> <span>شحن</span></div>
+        <div class="nav-item" id="nav-admin" onclick="showPage('admin-dashboard')" style="display:none; color:#ff3333;"><i class="fas fa-user-shield"></i> <span>الإدارة</span></div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, set, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -752,7 +692,7 @@
 
         let currentUserUid = null;
         let globalServices = {};
-        let systemCurrentNotification = "لا توجد إشعارات جديدة حالياً من المطور.";
+        let systemCurrentNotification = "لا توجد إشعارات حالياً.";
         const ADMIN_EMAIL = "admin@mtger.iq";
 
         window.showPage = function(pageId) {
@@ -772,7 +712,6 @@
 
         function initSiteUI(isAdmin = false) {
             document.getElementById('app-bar-view').style.display = 'flex';
-            document.getElementById('promo-ticker-view').style.display = 'flex';
             document.getElementById('bottom-nav-bar').style.display = 'flex';
             if(isAdmin) {
                 document.getElementById('nav-admin').style.display = 'flex';
@@ -787,22 +726,21 @@
             signOut(auth).then(() => location.reload());
         };
 
-        // ---------------- حل مشكلة الدخول بحساب جوجل بشكل جذري (Popup بدلاً من Redirect) ----------------
+        // تسجيل الدخول مع بقاء تهيئة جوجل دون تغيير لضمان استقرار السيستم لديك
         document.getElementById('google-login-btn').addEventListener('click', () => {
-            signInWithPopup(auth, googleProvider)
-            .then((res) => {
-                if(res.user) {
-                    set(ref(db, 'users/' + res.user.uid), { 
-                        fullname: res.user.displayName, 
-                        email: res.user.email, 
-                        balance: 5.00, // رصيد ترحيبي تجريبي
-                        photoURL: res.user.photoURL || ""
-                    });
-                    showToast("مرحباً بك: " + res.user.displayName);
-                    initSiteUI(res.user.email === ADMIN_EMAIL);
-                }
-            })
-            .catch((err) => showToast("فشل تسجيل الدخول بحساب Google: " + err.message));
+            signInWithRedirect(auth, googleProvider);
+        });
+
+        getRedirectResult(auth).then((res) => {
+            if(res && res.user) {
+                set(ref(db, 'users/' + res.user.uid), { 
+                    fullname: res.user.displayName, 
+                    email: res.user.email, 
+                    balance: 0.00, // رصيد الحسابات الجديدة صفر تماماً $0.00
+                    photoURL: res.user.photoURL || ""
+                });
+                initSiteUI(res.user.email === ADMIN_EMAIL);
+            }
         });
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
@@ -817,7 +755,7 @@
             const name = document.getElementById('reg-name').value;
             createUserWithEmailAndPassword(auth, document.getElementById('reg-email').value, document.getElementById('reg-pass').value)
             .then((cred) => {
-                set(ref(db, 'users/' + cred.user.uid), { fullname: name, email: cred.user.email, balance: 0.00 });
+                set(ref(db, 'users/' + cred.user.uid), { fullname: name, email: cred.user.email, balance: 0.00 }); // تصفير رصيد المشتركين الجدد
                 initSiteUI(false);
             })
             .catch((err) => showToast("خطأ: " + err.message));
@@ -834,7 +772,7 @@
                         document.getElementById('client-welcome-title').innerText = `مرحباً، ${uData.fullname || 'عميلنا'} 👋`;
                         const avatarDiv = document.getElementById('avatar-letters');
                         if(user.photoURL) {
-                            avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Google Profile">`;
+                            avatarDiv.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
                         } else {
                             avatarDiv.innerText = (uData.fullname || 'ذ').substring(0, 1);
                         }
@@ -845,18 +783,19 @@
                 listenToSystemNotification();
                 loadServicesData();
                 loadCustomerOrders();
+                loadBannersToCarousel();
+                listenToSystemRatings();
                 initSiteUI(isAdmin);
                 if(isAdmin) loadAdminPanels();
             }
         });
 
-        // ---------------- نظام بث واستقبال الإشعارات الفوري ----------------
+        // ---------------- بث وإدارة الإشعارات السحابية ----------------
         window.broadcastSystemNotification = function() {
             const txt = document.getElementById('admin-notice-input').value;
             if(!txt) return;
-            set(ref(db, 'system_notification'), { message: txt, timestamp: Date.now() })
-            .then(() => {
-                showToast("تم بث وتحديث الإشعار بنجاح!");
+            set(ref(db, 'system_notification'), { message: txt }).then(() => {
+                showToast("تم بث التنبيه الفوري!");
                 document.getElementById('admin-notice-input').value = "";
             });
         };
@@ -865,28 +804,126 @@
             onValue(ref(db, 'system_notification'), (snap) => {
                 if(snap.exists()) {
                     systemCurrentNotification = snap.val().message;
-                    document.getElementById('noti-red-dot').style.display = 'block'; // تنبيه بوجود إشعار جديد
+                    document.getElementById('noti-red-dot').style.display = 'block';
                 }
             });
         }
 
         window.openNotificationsModal = function() {
-            document.getElementById('noti-red-dot').style.display = 'none'; // إخفاء العلامة عند القراءة
+            document.getElementById('noti-red-dot').style.display = 'none';
             const modal = document.getElementById('info-modal');
-            document.getElementById('modal-title-text').innerText = "📢 إشعارات المطور الحالية";
-            document.getElementById('modal-body-text').innerText = systemCurrentNotification;
+            document.getElementById('modal-title-text').innerText = "📢 الإشعارات والتعليمات";
+            document.getElementById('modal-dynamic-body').innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">${systemCurrentNotification}</p>`;
             modal.style.display = 'flex';
         };
 
-        // ---------------- التصفية والتحكم بالخدمات (حذف وتعديل) ----------------
+        // ---------------- نشر وإدارة وحذف البانرات الزجاجية من الأدمن ----------------
+        document.getElementById('admin-add-banner-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('admin-banner-title').value;
+            const desc = document.getElementById('admin-banner-desc').value;
+            push(ref(db, 'banners'), { title, desc }).then(() => {
+                showToast("تم نشر وتعميم العرض الزجاجي!");
+                document.getElementById('admin-add-banner-form').reset();
+            });
+        });
+
+        function loadBannersToCarousel() {
+            onValue(ref(db, 'banners'), (snap) => {
+                const track = document.getElementById('carousel-track');
+                const dotsContainer = document.getElementById('carousel-dots');
+                track.innerHTML = "";
+                dotsContainer.innerHTML = "";
+
+                if(!snap.exists()) {
+                    track.innerHTML = `<div class="carousel-slide"><h2>أهلاً بك في MTGER IQ</h2><p>أفضل وأسرع خدمات الرشق السحابية المتكاملة لحساباتك.</p></div>`;
+                    return;
+                }
+
+                let index = 0;
+                snap.forEach((child) => {
+                    const b = child.val();
+                    track.innerHTML += `
+                        <div class="carousel-slide">
+                            <h2>${b.title}</h2>
+                            <p>${b.desc}</p>
+                        </div>
+                    `;
+                    dotsContainer.innerHTML += `<div class="dot ${index===0?'active-dot':''}" data-slide="${index}"></div>`;
+                    index++;
+                });
+
+                initCarouselLogic(); // تشغيل حركة وميكانيكية السحب للبانر الإعلاني
+            });
+        }
+
+        // ---------------- نظام التقييم السحابي الفعال ----------------
+        window.openRatingModal = function() {
+            const modal = document.getElementById('info-modal');
+            document.getElementById('modal-title-text').innerText = "⭐ شاركنا تقييمك للمتجر";
+            document.getElementById('modal-dynamic-body').innerHTML = `
+                <div style="text-align:center; padding:10px 0;">
+                    <div style="font-size:24px; color:#ffb703; margin-bottom:15px; display:flex; justify-content:center; gap:8px; cursor:pointer;">
+                        <i class="far fa-star rating-star-choice" data-star="1" onclick="setStarRating(1)"></i>
+                        <i class="far fa-star rating-star-choice" data-star="2" onclick="setStarRating(2)"></i>
+                        <i class="far fa-star rating-star-choice" data-star="3" onclick="setStarRating(3)"></i>
+                        <i class="far fa-star rating-star-choice" data-star="4" onclick="setStarRating(4)"></i>
+                        <i class="far fa-star rating-star-choice" data-star="5" onclick="setStarRating(5)"></i>
+                    </div>
+                    <input type="text" id="user-comment-rating" placeholder="اكتب تعليقك هنا..." style="width:100%; padding:12px; background:#171b24; border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; margin-bottom:15px;">
+                    <button onclick="submitUserRatingToServer()" class="btn-main btn-blue">إرسال التقييم فوراً</button>
+                </div>
+            `;
+            window.currentUserSelectedStars = 5; // الافتراضي خمسة نجوم
+            modal.style.display = 'flex';
+            setStarRating(5);
+        };
+
+        window.setStarRating = function(num) {
+            window.currentUserSelectedStars = num;
+            const stars = document.querySelectorAll('.rating-star-choice');
+            stars.forEach((star, i) => {
+                if(i < num) {
+                    star.classList.replace('far', 'fas');
+                } else {
+                    star.classList.replace('fas', 'far');
+                }
+            });
+        };
+
+        window.submitUserRatingToServer = function() {
+            const comment = document.getElementById('user-comment-rating').value || "خدمة ممتازة";
+            push(ref(db, 'ratings'), {
+                stars: window.currentUserSelectedStars,
+                comment: comment
+            }).then(() => {
+                showToast("شكراً لمشاركتك تقييمك الثمين! ❤️");
+                closeInfoModal();
+            });
+        };
+
+        function listenToSystemRatings() {
+            onValue(ref(db, 'ratings'), (snap) => {
+                if(!snap.exists()) return;
+                let totalStars = 0;
+                let count = 0;
+                snap.forEach((child) => {
+                    totalStars += child.val().stars;
+                    count++;
+                });
+                const avg = (totalStars / count).toFixed(1);
+                document.getElementById('average-rating-num').innerText = `${avg} (${count} تقييم)`;
+            });
+        }
+
+        // ---------------- التحكم بالخدمات وتصفيتها وتعديلها ----------------
         document.getElementById('admin-add-service-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const platform = document.getElementById('admin-service-platform').value;
             const name = document.getElementById('admin-service-name').value;
             const price = parseFloat(document.getElementById('admin-service-price').value);
-
             push(ref(db, 'services'), { platform, name, price }).then(() => {
-                showToast("تم إضافة الخدمة للسيستم.");
+                showToast("تم نشر الخدمة بالسيستم.");
                 document.getElementById('admin-add-service-form').reset();
             });
         });
@@ -895,18 +932,12 @@
             onValue(ref(db, 'services'), (snap) => {
                 const publicGrid = document.getElementById('public-services-grid');
                 const allList = document.getElementById('all-services-grid-list');
-                
-                publicGrid.innerHTML = "";
-                allList.innerHTML = "";
+                publicGrid.innerHTML = ""; allList.innerHTML = "";
                 globalServices = {};
-
                 if(!snap.exists()) return;
-
                 snap.forEach((child) => {
-                    const id = child.key;
-                    const s = child.val();
+                    const id = child.key; const s = child.val();
                     globalServices[id] = s;
-
                     let iconClass = "fab fa-instagram insta-color";
                     if(s.platform === "tiktok") iconClass = "fab fa-tiktok tiktok-color";
                     if(s.platform === "telegram") iconClass = "fab fa-telegram-plane tele-color";
@@ -915,29 +946,20 @@
                         <div class="service-card" onclick="showPage('dashboard')">
                             <div class="card-badge">-50%</div>
                             <div class="card-icon"><i class="${iconClass}"></i></div>
-                            <div>
-                                <div style="font-size:11px; color:#555;">${s.platform}</div>
-                                <h3>${s.name}</h3>
-                            </div>
-                            <div class="price-row">
-                                <div class="old-price">$${(s.price * 2).toFixed(2)}</div>
-                                <div class="new-price">$${s.price}</div>
-                            </div>
+                            <div><div style="font-size:11px; color:#555;">${s.platform}</div><h3>${s.name}</h3></div>
+                            <div class="price-row"><div class="old-price">$${(s.price*2).toFixed(2)}</div><div class="new-price">$${s.price}</div></div>
                         </div>
                     `;
-                    publicGrid.innerHTML += cardHTML;
-                    allList.innerHTML += cardHTML;
+                    publicGrid.innerHTML += cardHTML; allList.innerHTML += cardHTML;
                 });
-                filterServicesByPlatform(); // تهيئة قائمة الفلترة الفورية
+                filterServicesByPlatform();
             });
         }
 
-        // دالة الفلترة التلقائية عند اختيار المنصة في واجهة المستخدم
         window.filterServicesByPlatform = function() {
             const selectedPlatform = document.getElementById('filter-platform-select').value;
             const selectElement = document.getElementById('service-item-select');
             selectElement.innerHTML = "";
-
             for (const id in globalServices) {
                 const s = globalServices[id];
                 if (selectedPlatform === "all" || s.platform === selectedPlatform) {
@@ -955,24 +977,30 @@
             const qty = parseInt(document.getElementById('order-qty').value) || 0;
             if(id && globalServices[id]) {
                 document.getElementById('order-cost-display').innerText = ((globalServices[id].price / 1000) * qty).toFixed(2);
-            } else {
-                document.getElementById('order-cost-display').innerText = "0.00";
-            }
+            } else { document.getElementById('order-cost-display').innerText = "0.00"; }
         };
 
-        // ---------------- واجهات الأدمن الفرعية (تعديل وحذف) ----------------
+        // لوحات الإدارة والتحكم الكاملة (حذف، تعديل البانرات والخدمات والطلبات)
         function loadAdminPanels() {
-            // جدول إدارة وحذف وتعديل الخدمات
+            // إدارة البانرات الزجاجية
+            onValue(ref(db, 'banners'), (snap) => {
+                const tbody = document.getElementById('admin-banners-manage-table');
+                tbody.innerHTML = "";
+                snap.forEach((child) => {
+                    tbody.innerHTML += `<tr><td><b>${child.val().title}</b></td><td><button onclick="deleteBannerFromSystem('${child.key}')" class="admin-btn-action" style="background:#ff3333;"><i class="fas fa-trash"></i></button></td></tr>`;
+                });
+            });
+
+            // إدارة وتعديل وحذف خدمات الرشق السحابية
             onValue(ref(db, 'services'), (snap) => {
                 const tbody = document.getElementById('admin-services-manage-table');
                 tbody.innerHTML = "";
                 snap.forEach((child) => {
-                    const id = child.key;
-                    const s = child.val();
+                    const id = child.key; const s = child.val();
                     tbody.innerHTML += `
                         <tr>
-                            <td><input type="text" id="edit-name-${id}" value="${s.name}" style="background:#222; border:1px solid #44; color:#fff; padding:5px; border-radius:5px; width:100px;"></td>
-                            <td><input type="number" step="0.01" id="edit-price-${id}" value="${s.price}" style="background:#222; border:1px solid #44; color:#fff; padding:5px; border-radius:5px; width:60px;"></td>
+                            <td><input type="text" id="edit-name-${id}" value="${s.name}" style="background:#222; border:1px solid #444; color:#fff; padding:5px; border-radius:5px; width:110px;"></td>
+                            <td><input type="number" step="0.01" id="edit-price-${id}" value="${s.price}" style="background:#222; border:1px solid #444; color:#fff; padding:5px; border-radius:5px; width:60px;"></td>
                             <td>
                                 <button onclick="updateServiceData('${id}')" class="admin-btn-action" style="background:#00C851;"><i class="fas fa-save"></i></button>
                                 <button onclick="deleteServiceData('${id}')" class="admin-btn-action" style="background:#ff3333;"><i class="fas fa-trash"></i></button>
@@ -982,24 +1010,13 @@
                 });
             });
 
-            // جدول استقبال طلبات الرشق
+            // إدارة وإنهاء الطلبات الواردة من المشتركين
             onValue(ref(db, 'orders'), (snap) => {
-                const tbody = document.getElementById('admin-orders-table');
-                tbody.innerHTML = "";
+                const tbody = document.getElementById('admin-orders-table'); tbody.innerHTML = "";
                 snap.forEach((child) => {
-                    const key = child.key;
-                    const o = child.val();
+                    const key = child.key; const o = child.val();
                     if(o.status !== "مكتمل") {
-                        tbody.innerHTML += `
-                            <tr>
-                                <td><small>${o.email}</small></td>
-                                <td>${o.serviceName}</td>
-                                <td>${o.qty}</td>
-                                <td>
-                                    <button onclick="markComplete('${key}')" class="admin-btn-action" style="background:#12b5e5;">إنهاء</button>
-                                </td>
-                            </tr>
-                        `;
+                        tbody.innerHTML += `<tr><td><small>${o.email}</small></td><td>${o.serviceName}</td><td>${o.qty}</td><td><button onclick="markComplete('${key}')" class="admin-btn-action" style="background:#12b5e5;">إنهاء</button></td></tr>`;
                     }
                 });
             });
@@ -1008,20 +1025,21 @@
         window.updateServiceData = function(id) {
             const newName = document.getElementById(`edit-name-${id}`).value;
             const newPrice = parseFloat(document.getElementById(`edit-price-${id}`).value);
-            update(ref(db, 'services/' + id), { name: newName, price: newPrice })
-            .then(() => showToast("تم حفظ تعديل الخدمة بنجاح ✅"));
+            update(ref(db, 'services/' + id), { name: newName, price: newPrice }).then(() => showToast("تم حفظ التعديل ✅"));
         };
 
         window.deleteServiceData = function(id) {
-            if(confirm("هل أنت متأكد من حذف هذه الخدمة نهائياً من المتجر؟")) {
-                remove(ref(db, 'services/' + id)).then(() => showToast("تم حذف الخدمة فوراً 🗑️"));
-            }
+            if(confirm("حذف هذه الخدمة نهائياً؟")) remove(ref(db, 'services/' + id)).then(() => showToast("تم حذف الخدمة"));
+        };
+
+        window.deleteBannerFromSystem = function(key) {
+            remove(ref(db, 'banners/' + key)).then(() => showToast("تم حذف العرض بنجاح 🗑️"));
         };
 
         document.getElementById('new-order-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const id = document.getElementById('service-item-select').value;
-            if(!id) { showToast("يرجى اختيار خدمة أولاً"); return; }
+            if(!id) return;
             const link = document.getElementById('order-link').value;
             const qty = parseInt(document.getElementById('order-qty').value);
             const cost = parseFloat(document.getElementById('order-cost-display').innerText);
@@ -1030,48 +1048,113 @@
                 const u = snap.val();
                 if(u && (u.balance || 0) >= cost) {
                     update(ref(db, 'users/' + currentUserUid), { balance: u.balance - cost });
-                    push(ref(db, 'orders'), {
-                        uid: currentUserUid,
-                        email: u.email,
-                        serviceName: globalServices[id].name,
-                        link, qty, cost, status: "قيد الانتظار"
-                    }).then(() => {
-                        showToast("🚀 تم إرسال الطلب بنجاح وجاري الرشق!");
-                        document.getElementById('new-order-form').reset();
-                        showPage('orders');
-                    });
-                } else {
-                    showToast("❌ الرصيد غير كافٍ.");
-                }
+                    push(ref(db, 'orders'), { uid: currentUserUid, email: u.email, serviceName: globalServices[id].name, link, qty, cost, status: "قيد الانتظار" })
+                    .then(() => { showToast("🚀 تم خصم الرصيد وبدأ الرشق!"); document.getElementById('new-order-form').reset(); showPage('orders'); });
+                } else { showToast("❌ رصيدك الحالي لا يكفي."); }
             }, { onlyOnce: true });
         });
 
         function loadCustomerOrders() {
             onValue(ref(db, 'orders'), (snap) => {
-                const tbody = document.getElementById('orders-table-body');
-                tbody.innerHTML = "";
+                const tbody = document.getElementById('orders-table-body'); tbody.innerHTML = "";
                 snap.forEach((child) => {
                     const o = child.val();
                     if(o.uid === currentUserUid) {
-                        tbody.innerHTML += `
-                            <tr>
-                                <td>${o.serviceName}</td>
-                                <td>${o.qty}</td>
-                                <td>$${o.cost}</td>
-                                <td><span style="color:#ffaa00;">${o.status}</span></td>
-                            </tr>
-                        `;
+                        tbody.innerHTML += `<tr><td>${o.serviceName}</td><td>${o.qty}</td><td>$${o.cost}</td><td><span style="color:#ffaa00;">${o.status}</span></td></tr>`;
                     }
                 });
             });
         }
 
         window.markComplete = function(key) {
-            update(ref(db, 'orders/' + key), { status: "مكتمل" }).then(() => showToast("تم إنجاز الطلب!"));
+            update(ref(db, 'orders/' + key), { status: "مكتمل" }).then(() => showToast("تم التحديث لمكتمل!"));
         };
     </script>
 
     <script>
+        function initCarouselLogic() {
+            const container = document.getElementById('glass-carousel');
+            const track = document.getElementById('carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            if(slides.length === 0) return;
+
+            let currentIndex = 0;
+            let startX = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let isDragging = false;
+            let autoPlayTimer = null;
+
+            function updateCarouselPosition() {
+                currentTranslate = currentIndex * -container.offsetWidth;
+                prevTranslate = currentTranslate;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                dots.forEach((dot, idx) => {
+                    if(idx === currentIndex) dot.classList.add('active-dot');
+                    else dot.classList.remove('active-dot');
+                });
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarouselPosition();
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayTimer = setInterval(nextSlide, 3000); // الانتقال التلقائي كل 3 ثوانٍ
+            }
+
+            function stopAutoPlay() {
+                if(autoPlayTimer) clearInterval(autoPlayTimer);
+            }
+
+            // ميكانيكية دعم السحب اليدوي (Touch + Mouse Swipe)
+            container.addEventListener('mousedown', (e) => {
+                stopAutoPlay(); isDragging = true; startX = e.pageX;
+            });
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const currentX = e.pageX;
+                const diff = currentX - startX;
+                track.style.transform = `translateX(${prevTranslate + diff}px)`;
+            });
+            window.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                const endX = e.pageX;
+                const diff = endX - startX;
+                if (diff < -50 && currentIndex < slides.length - 1) currentIndex++;
+                else if (diff > 50 && currentIndex > 0) currentIndex--;
+                updateCarouselPosition(); startAutoPlay();
+            });
+
+            // دعم اللمس للهواتف الذكية
+            container.addEventListener('touchstart', (e) => {
+                stopAutoPlay(); isDragging = true; startX = e.touches[0].clientX;
+            });
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+                track.style.transform = `translateX(${prevTranslate + diff}px)`;
+            });
+            container.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                const endX = e.changedTouches[0].clientX;
+                const diff = endX - startX;
+                if (diff < -50 && currentIndex < slides.length - 1) currentIndex++;
+                else if (diff > 50 && currentIndex > 0) currentIndex--;
+                updateCarouselPosition(); startAutoPlay();
+            });
+
+            startAutoPlay();
+            window.addEventListener('resize', updateCarouselPosition);
+        }
+
         function toggleUserMenu(event) {
             event.stopPropagation();
             document.getElementById('user-dropdown-menu').classList.toggle('show-menu');
@@ -1084,14 +1167,14 @@
         function openInfoModal(type) {
             const modal = document.getElementById('info-modal');
             const title = document.getElementById('modal-title-text');
-            const body = document.getElementById('modal-body-text');
+            const dynamicBody = document.getElementById('modal-dynamic-body');
 
             if(type === 'about') {
                 title.innerText = "من نحن - MTGER IQ";
-                body.innerText = "منصة سيرفرات الرشق السحابي الأسرع في العراق والوطن العربي لتنمية حساباتك.";
+                dynamicBody.innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">منصة سيرفرات الرشق السحابي الأسرع في العراق والوطن العربي لتنمية حساباتك بأعلى كفاءة وأقل التكاليف.</p>`;
             } else if (type === 'privacy') {
                 title.innerText = "سياسة الخصوصية";
-                body.innerText = "جميع عملياتك وبياناتك مشفرة ومحمية بالكامل عبر سيرفرات جوجل الآمنة.";
+                dynamicBody.innerHTML = `<p style="font-size:14px; color:#ccc; line-height:1.7;">جميع عملياتك، الروابط المستهدفة، وبياناتك الشخصية مشفرة ومحمية بالكامل عبر خوادم فايربيس السحابية الآمنة.</p>`;
             }
             modal.style.display = 'flex';
         }
